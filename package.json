@@ -1,8 +1,8 @@
 {
   "name": "MrFinance",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Fabian Solano",
+  "homepage": "https://github.com/FabianFavila/MrFinance",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -34,5 +34,5 @@
     "@ionic/app-scripts": "3.0.0",
     "typescript": "2.3.4"
   },
-  "description": "An Ionic project"
+  "description": "La mejor aplicación financiera que le ayudará a controlar sus gastos, llevar un registro de ellos y mejorar su cultura financiera a través de un asistente inteligente"
 }
