@@ -1,0 +1,11 @@
+page-welcome {
+    .head{
+        height: 25%;
+        background-color: color($colors, primary);
+    }
+
+    .body{
+        background-color: color($colors, secondary);
+        height: 75%;
+    }
+}
