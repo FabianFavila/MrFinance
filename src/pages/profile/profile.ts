@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { IntroPage } from '../intro/intro';
-
-
-
 /**
- * Generated class for the SetupLoginPage page.
+ * Generated class for the ProfilePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,20 +10,16 @@ import { IntroPage } from '../intro/intro';
 
 @IonicPage()
 @Component({
-  selector: 'page-setup-login',
-  templateUrl: 'setup-login.html',
+  selector: 'page-profile',
+  templateUrl: 'profile.html',
 })
-export class SetupLoginPage {
+export class ProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SetupLoginPage');
-  }
-
-  openIntro(){
-    this.navCtrl.push(IntroPage);
+    console.log('ionViewDidLoad ProfilePage');
   }
 
 }

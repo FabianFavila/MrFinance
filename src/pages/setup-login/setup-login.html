@@ -2,51 +2,56 @@
     <div class="header" padding>
       <h1 text-center>Ya estamos por terminar...</h1>
     </div>
-    <div class="form">
-      <p text-center>... solo configura estos ajustes iniciales de la
-          aplicacion para que tu experiencia sea la mejor.</p>
+    <div class="form" padding>
+      <p text-center>
+        ... solo configura estos ajustes iniciales de la
+        aplicacion para que tu experiencia sea la mejor.
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Nombre</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+      
+      <ion-label stacked>Tu avatar</ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/imgs/avatars/boy1.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/imgs/avatars/boy2.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/imgs/avatars/boy3.png">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/imgs/avatars/boy4.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/imgs/avatars/miss1.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar>
+              <img src="../../assets/imgs/avatars/miss2.png">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+      <button (click)="openIntro()" ion-button color="secondary" block>COMENZAR</button>
     </div>
-    <ion-label stacked>Nombre</ion-label>
-    <ion-input type="text"></ion-input>
-
-    <ion-label stacked>Tu avatar</ion-label>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-avatar>
-            <img src="..\..\assets\imgs\avatars\boy-1.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col>
-          <ion-avatar>
-            <img src="..\..\assets\imgs\avatars\boy-2.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col>
-          <ion-avatar>
-            <img src="..\..\assets\imgs\avatars\boy-3.png">
-          </ion-avatar>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-avatar>
-            <img src="..\..\assets\imgs\avatars\boy-4.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col>
-          <ion-avatar>
-            <img src="..\..\assets\imgs\avatars\miss-1.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col>
-          <ion-avatar>
-            <img src="..\..\assets\imgs\avatars\miss-2.png">
-          </ion-avatar>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <button ion-button color="secondary" block>COMENZAR</button>
 </ion-content>
   

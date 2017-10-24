@@ -1,18 +1,68 @@
-<!--
-  Generated template for the IntroPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Intro</ion-title>
+<ion-header no-shadow>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="finishIntro()" color="primary">Saltar el recorrido</button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
+  
+<ion-content no-bounce>
+  <ion-slides pager="true" (ionSlideWillChange)="onSlideChangeStart($event)">
+    <ion-slide>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <p>Registra tus gastos e ingresos para 
+          tener un mejor control financiero.</p>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <p>Mantén organizadas tus transacciones 
+          en carteras, las cuales pueden ser, 
+          por ejemplo, tu cuenta bancaria, tu 
+          tarjeta de nomina o efectivo.</p>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <p>¿Tienes cuentas o facturas que pagar? 
+          Registralas en Mr. Finance y el se encargará 
+          de recordarte la próxima fecha de pago para 
+          que nunca olvides pagar alguna. Además de 
+          tener registro cuales has pagado y cuales 
+          siguen pendientes.
+          </p>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <p>Establece un plan de ahorro adaptable al tiempo 
+          y objetivo que tu decidas y la aplicación se 
+          encargará de generar el mejor plan diario o 
+          semanal para que la cumplas.
+          </p>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <p>Ten un mejor registro de que cuanto prestas y 
+          pides prestado con el sistema de Prestamos, 
+          el cual sabrás cuando realizaste el movimiento, 
+          a quien y cuando será la proxima fecha de cobro 
+          o pago para liquidar ese prestamo.
+          </p>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <p>Recibe y consulta tips personalizados con base 
+          en tus finanzas saber si lo que estas gastando 
+          esta fuera de tu presupuesto o como puedes 
+          mejorar tu cultura financiera. Ademas de ver los 
+          resultados de tus registros en 
+          reportes y graficas.
+          </p>
+    </ion-slide>
 
-
-<ion-content padding>
-
+    <ion-slide class="last-slide" padding>
+      <img src="../../assets/imgs/logo.png" class="slide-image" />
+      <button ion-button (click)="makeTransaction()" color="secondary" block>CREAR MI PRIMERA TRANSACCIÓN</button>
+      <button ion-button (click)="gotoDashboard()" color="primary" block>IR AL DASHBOARD</button>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+  

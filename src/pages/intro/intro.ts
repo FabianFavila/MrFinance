@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+
 
 /**
  * Generated class for the IntroPage page.
@@ -14,12 +15,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'intro.html',
 })
 export class IntroPage {
+  @ViewChild(Slides) slides: Slides;
+  showSkip = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad IntroPage');
+  onSlideChangeStart(slider) {
+    this.showSkip = !slider.isEnd();
+  }
+
+  finishIntro(){
+    this.slides.slideTo(6, 500);
+  }
+
+  makeTransaction(){
+
+  }
+
+  gotoDashboard(){
+    
   }
 
 }
