@@ -1,18 +1,25 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+<ion-content>
+  <div class="header" padding>
+    
+    <h1 text-center *ngIf="isNew; else login">Crear una cuenta</h1>
+    <ng-template #login> <h1 text-center>Iniciar sesión</h1> </ng-template>
+  </div>
+  <div class="button-group" padding>
+      <button (click)="loginFacebook()" ion-button icon-left color="facebook" block>
+        <ion-icon name="logo-facebook"></ion-icon>
+        Conectar con Facebook
+      </button>
+      <button (click)="loginTwitter()" ion-button icon-left color="twitter" block>
+        <ion-icon name="logo-twitter"></ion-icon>
+        Conectar con Twitter
+      </button>
+      <button (click)="loginGoogle()" ion-button icon-left color="google" block>
+        <ion-icon name="logo-google"></ion-icon>
+        Conectar con Google
+      </button>
+  </div>
+  <div class="footer">
+    <h4 (click)="toggle()" text-center *ngIf="isNew; else login2">Ya tengo una cuenta</h4>
+    <ng-template #login2> <h4 (click)="toggle()" text-center>¿Aun no estas registrado? Crea una cuenta</h4> </ng-template>
+  </div>
 </ion-content>

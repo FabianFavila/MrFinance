@@ -1,14 +1,15 @@
 <ion-content scroll="false">
-  <div class="head">
-    <h1 padding>Bienvenido a Mr. Finance</h1>
+  <div class="header">
+    <h2 padding>Bienvenido a Mr. Finance</h2>
   </div>
   <div class="body">
+    <img class="logo" src="../../assets/imgs/logo.png" alt="Mr Finance Logo">
     <div padding>
         <p text-center>La mejor aplicación financiera que le ayudará a controlar sus gastos, 
             llevar un registro de ellos y mejorar su cultura financiera a través 
             de un asistente inteligente</p>
-        <button ion-button color="primary" block large>CREAR CUENTA</button>
-        <button ion-button color="primary" block large>INICIAR SESIÓN</button>
+        <button ion-button (click)="signup()" color="primary" block>CREAR CUENTA</button>
+        <button ion-button (click)="login()" color="primary" block>INICIAR SESIÓN</button>
     </div>
   </div>
 </ion-content>

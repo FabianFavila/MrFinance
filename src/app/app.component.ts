@@ -4,6 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FirstRunPage } from '../pages/pages';
+import { SetupLoginPage } from './../pages/setup-login/setup-login';
+import { IntroPage } from './../pages/intro/intro';
+import { LoginPage } from './../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,10 +17,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   
   pages: any[] = [
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'SetupLogin', component: 'SetupLoginPage' },
-    { title: 'Intro', component: 'IntroPage' },
+    { title: 'Login', component: LoginPage },
+    { title: 'SetupLogin', component: SetupLoginPage },
+    { title: 'Intro', component: IntroPage },
   ]
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config) {

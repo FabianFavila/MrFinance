@@ -1,11 +1,30 @@
 page-welcome {
-    .head{
+    .header{
         height: 25%;
         background-color: color($colors, primary);
+        h2{
+            color: color($colors, light);
+        }
     }
 
     .body{
+        position: relative;
         background-color: color($colors, secondary);
         height: 75%;
+        z-index: 2;
+        button{
+            margin-top: 30px;
+        }
     }
+
+    .logo{
+        margin: auto;
+        background: repeat transparent;
+        background-size: 100%;
+        width: 160px;
+        height: 160px;
+        margin-top: -64px;
+    }
+
+    
 }

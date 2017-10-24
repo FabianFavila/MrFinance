@@ -1,3 +1,14 @@
 page-setup-login {
-
+    .header{
+        height: 25%;
+        background-color: color($colors, primary);
+        position: relative;
+        h1{
+            color: color($colors, light);
+            position: absolute;
+            bottom: 0;
+            left: 0px;
+            width: 100%;
+        }
+    }
 }
