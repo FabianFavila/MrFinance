@@ -8,13 +8,11 @@ import { DashboardPage } from './../pages/dashboard/dashboard';
 import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-transaccion';
 import { CarterasPage } from './../pages/carteras/carteras';
 
-import firebase from 'firebase';
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = FirstRunPage;
+  rootPage:any = DashboardPage;
 
   @ViewChild(Nav) nav: Nav;
   
@@ -25,14 +23,6 @@ export class MyApp {
   ]
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyBm-2qg-yU82EuDXhK5bGpTWC0wo4zVKLk",
-      authDomain: "Your Firebase Credentials Here",
-      databaseURL: "Your Firebase Credentials Here",
-      projectId: "Your Firebase Credentials Here",
-      storageBucket: "Your Firebase Credentials Here",
-      messagingSenderId: "Your Firebase Credentials Here",
-    });
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

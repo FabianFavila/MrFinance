@@ -1,10 +1,34 @@
 page-dashboard {
+    .profile-photo{
+        width: 80px;
+        height: 80px;
+        float: right;
+    }
+
     .carteras{
+        background-color: color($colors, primary);
+        
         h5{
             color: white;
         }
 
-        background-color: color($colors, primary);
+        .cartera{
+            border-color: color($colors, dark);
+            background-color: color($colors, secondary);
+        }   
+    }
+
+    .transaccion{
+        background-color: #D7E5DC;
+
+        .category{
+            max-width: 90%;
+        }
+
+        .amount{
+            text-align: center;
+            font-size: 32px;
+        }
     }
 
 }

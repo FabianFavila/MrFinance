@@ -1,7 +1,7 @@
 <ion-menu [content]="content" swipeEnabled="false">
     <ion-header>
-        <ion-toolbar>
-            <ion-title color="primary">Menu</ion-title>
+        <ion-toolbar color="primary">
+            <ion-title>Menu</ion-title>
         </ion-toolbar>
     </ion-header>
 
@@ -15,8 +15,14 @@
 </ion-menu>
 
 <ion-menu side="right" [content]="content" swipeEnabled="false">
-    <ion-content>
-        <h2>Fabian Solano</h2>
+    <ion-content padding>
+        <img src="../assets/imgs/avatars/boy1.png" alt="Profile photo">
+        <h1 style="text-align:center;">Fabian Solano</h1>
+        <!-- Float the icon left -->
+        <button ion-button icon-left full>
+            <ion-icon name="contact"></ion-icon>
+            Cambiar mi informacion
+        </button>
     </ion-content>
 </ion-menu>
 

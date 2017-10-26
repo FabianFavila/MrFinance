@@ -1,68 +1,70 @@
-<ion-header no-shadow>
-  <ion-navbar hideBackButton="true">
-    <ion-buttons start>
-      <button ion-button icon-only (click)="openMenu()">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-    
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openProfile()">
-        <ion-icon name="contact"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-only large clear round (click)="openMenu()">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col align-self-end>
+        <img src="../../assets/imgs/avatars/boy1.png" alt="Profile photo" class="profile-photo" (click)="openProfile()">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <div class="header" padding>
-    <h5>Bienvenido de nuevo, Fabian. <br>
-      Tu balanza general es de <strong>$3,000</strong></h5>
+    <h3>Bienvenido de nuevo, Fabian. <br>
+      Tu balanza general es de <strong>$3,000</strong></h3>
   </div>
   <div class="carteras" padding>
     <h5>Carteras</h5>
-    <ion-slides spaceBetween="5px">
-      <ion-slide>
-        <ion-card>
-          <ion-card-header>
-            Tarjeta banorte
-          </ion-card-header>
-          <ion-card-content>
-            $3,000
-          </ion-card-content>
-        </ion-card>
+    <ion-slides spaceBetween="20px">
+      <ion-slide class="cartera">
+        <p>Efectivo</p>
+        <h4>$100.00 MXN</h4>
       </ion-slide>
-      <ion-slide>
-        <ion-card>
-          <ion-card-header>
-            Tarjeta banorte
-          </ion-card-header>
-          <ion-card-content>
-            $3,000
-          </ion-card-content>
-        </ion-card>
+      <ion-slide class="cartera">
+        <p>Efectivo</p>
+        <h4>$100.00 MXN</h4>
       </ion-slide>
-      <ion-slide>
-        <ion-card>
-            <ion-card-header>
-              Tarjeta banorte
-            </ion-card-header>
-            <ion-card-content>
-              $3,000
-            </ion-card-content>
-          </ion-card>
-      </ion-slide>
-      <ion-slide>
-        <ion-card>
-            <ion-card-header>
-              Tarjeta banorte
-            </ion-card-header>
-            <ion-card-content>
-              $3,000
-            </ion-card-content>
-          </ion-card>
+      <ion-slide class="cartera" style="background-color: white;">
+          <button ion-button icon-only large clear>
+              <ion-icon name="add-circle"></ion-icon>
+          </button>
       </ion-slide>
     </ion-slides>
   </div>
+  <div class="transacciones">
+      <h5 padding-left>Ultimos registros</h5>
+      <ion-card class="transaccion">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-3>
+              <img src="../../assets/imgs/categories/books.png" alt="Category" class="category">
+            </ion-col>
+            <ion-col col-9>
+              <h1 class="amount">$250.00 MXN</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-around>
+              <ion-col col-6>
+                Tarjeta banamex
+              </ion-col>
+              <ion-col col-3>
+                12/Abr
+              </ion-col>
+              <ion-col col-3>
+                - Gasto
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </ion-card>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="newTransaction()"><ion-icon name="logo-usd"></ion-icon></button>
+      <button ion-fab><ion-icon name="ios-cash-outline"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

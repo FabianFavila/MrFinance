@@ -14,12 +14,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'agregar-transaccion.html',
 })
 export class AgregarTransaccionPage {
+  amount: number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AgregarTransaccionPage');
+  addNumber(num: number){
+    if(this.amount == 0){
+      this.amount = num;
+    } else{
+      this.amount = +(this.amount.toString().concat(num.toString()));
+    }
   }
+
+  substractNumber(){
+    this.amount = this.amount.toString.slice(0, -1);
+  }
+  
 
 }

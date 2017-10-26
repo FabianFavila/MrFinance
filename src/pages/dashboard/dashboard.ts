@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { AgregarTransaccionPage } from '../agregar-transaccion/agregar-transaccion';
 
 /**
  * Generated class for the DashboardPage page.
@@ -24,6 +25,10 @@ export class DashboardPage {
 
   openProfile(){
     this.menuCtrl.toggle('right');
+  }
+
+  newTransaction(){
+    this.navCtrl.push(AgregarTransaccionPage);
   }
 
 }

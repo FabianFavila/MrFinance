@@ -1,3 +1,21 @@
 page-agregar-transaccion {
+    .amount{
+        height: 25%;
+        vertical-align: middle;
 
+        h1{
+            font-size: 50px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    }
+
+    .numbers{
+        height: 65%;
+        border: 5px solid black;
+
+        h1{
+            font-size: 40px;
+        }
+    }
 }
