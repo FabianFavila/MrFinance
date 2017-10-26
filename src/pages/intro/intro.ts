@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 
+import { DashboardPage } from './../dashboard/dashboard';
+import { AgregarTransaccionPage } from './../agregar-transaccion/agregar-transaccion';
 
 /**
  * Generated class for the IntroPage page.
@@ -30,11 +32,11 @@ export class IntroPage {
   }
 
   makeTransaction(){
-
+    this.navCtrl.push(AgregarTransaccionPage);
   }
 
   gotoDashboard(){
-    
+    this.navCtrl.push(DashboardPage);
   }
 
 }

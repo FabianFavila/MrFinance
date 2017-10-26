@@ -9,13 +9,19 @@ import { MyApp } from './app.component';
 import { SetupLoginPage } from './../pages/setup-login/setup-login';
 import { IntroPage } from './../pages/intro/intro';
 import { LoginPage } from './../pages/login/login';
+import { DashboardPage } from './../pages/dashboard/dashboard';
+import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-transaccion';
+
+
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     IntroPage,
-    SetupLoginPage
+    SetupLoginPage,
+    DashboardPage,
+    AgregarTransaccionPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +32,9 @@ import { LoginPage } from './../pages/login/login';
     MyApp,
     LoginPage,
     IntroPage,
-    SetupLoginPage
+    SetupLoginPage,
+    DashboardPage,
+    AgregarTransaccionPage
   ],
   providers: [
     StatusBar,
