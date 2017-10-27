@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Mr Finance</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Eisei</author>
+<widget id="com.eisei.mrfinance" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Mr. Finance</name>
+    <description>La mejor aplicación financiera que le ayudará a controlar sus gastos, llevar un registro de ellos y mejorar su cultura financiera a través de un asistente inteligente.</description>
+    <author email="fabian.favila@eisei.net.mx" href="http://www.eisei.net.mx/es/inicio">Fabian Solano</author>
     <universal-links>
         <host name="https://hr2uu.app.goo.gl/" scheme="https" />
         <host name="mr-finance.firebaseapp.com" scheme="https">
@@ -92,4 +92,5 @@
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
 </widget>

@@ -12,7 +12,7 @@ import { CarterasPage } from './../pages/carteras/carteras';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = DashboardPage;
+  rootPage:any = FirstRunPage;
 
   @ViewChild(Nav) nav: Nav;
   
