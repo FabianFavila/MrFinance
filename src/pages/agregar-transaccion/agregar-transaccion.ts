@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DetalleTransaccionPage } from './../detalle-transaccion/detalle-transaccion';
+
 /**
  * Generated class for the AgregarTransaccionPage page.
  *
@@ -28,8 +30,12 @@ export class AgregarTransaccionPage {
   }
 
   substractNumber(){
-    this.amount = this.amount.toString.slice(0, -1);
+    this.amount = this.amount!=0 ? +(this.amount.toString().slice(0, -1)) : 0;
   }
-  
 
+  confirm(){
+    this.navCtrl.push(DetalleTransaccionPage, {
+      amount: this.amount
+    })
+  }
 }

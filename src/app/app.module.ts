@@ -11,8 +11,29 @@ import { IntroPage } from './../pages/intro/intro';
 import { LoginPage } from './../pages/login/login';
 import { DashboardPage } from './../pages/dashboard/dashboard';
 import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-transaccion';
+import { DetalleTransaccionPage } from './../pages/detalle-transaccion/detalle-transaccion';
 
+import firebase from 'firebase';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 
+firebase.initializeApp({
+  apiKey: "AIzaSyBm-2qg-yU82EuDXhK5bGpTWC0wo4zVKLk",
+  authDomain: "mr-finance.firebaseapp.com",
+  databaseURL: "https://mr-finance.firebaseio.com",
+  projectId: "mr-finance",
+  storageBucket: "mr-finance.appspot.com",
+  messagingSenderId: "923702613206"
+});
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBm-2qg-yU82EuDXhK5bGpTWC0wo4zVKLk",
+  authDomain: "mr-finance.firebaseapp.com",
+  databaseURL: "https://mr-finance.firebaseio.com",
+  projectId: "mr-finance",
+  storageBucket: "mr-finance.appspot.com",
+  messagingSenderId: "923702613206"
+};
 
 @NgModule({
   declarations: [
@@ -21,11 +42,14 @@ import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-t
     IntroPage,
     SetupLoginPage,
     DashboardPage,
-    AgregarTransaccionPage
+    AgregarTransaccionPage,
+    DetalleTransaccionPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,11 +58,13 @@ import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-t
     IntroPage,
     SetupLoginPage,
     DashboardPage,
-    AgregarTransaccionPage
+    AgregarTransaccionPage,
+    DetalleTransaccionPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -18,8 +18,7 @@ export class MyApp {
   
   pages: any[] = [
     { title: 'Dashboard', component: DashboardPage },
-    { title: 'Agregar transaccion', component: AgregarTransaccionPage },
-    { title: 'Carteras', component: CarterasPage },
+    { title: 'Agregar transaccion', component: AgregarTransaccionPage }
   ]
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config) {

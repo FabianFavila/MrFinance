@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import firebase  from 'firebase';
 import { SetupLoginPage } from './../setup-login/setup-login';
 
 /**
@@ -23,15 +23,44 @@ export class LoginPage {
   }
 
   loginFacebook(){
-    this.navCtrl.push(SetupLoginPage);
+    let provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase.auth().signInWithRedirect(provider).then(() =>{
+      firebase.auth().getRedirectResult().then((result) =>{
+        alert(JSON.stringify(result));
+        this.navCtrl.push(SetupLoginPage);
+      }).catch(function(error){
+        alert(JSON.stringify(error));
+      });
+    });
   }
 
   loginTwitter(){
-    this.navCtrl.push(SetupLoginPage);
+    let provider = new firebase.auth.TwitterAuthProvider();
+    
+    firebase.auth().signInWithRedirect(provider).then(() =>{
+      firebase.auth().getRedirectResult().then((result) =>{
+        alert(JSON.stringify(result));
+        this.navCtrl.push(SetupLoginPage);
+      }).catch(function(error){
+        alert(JSON.stringify(error));
+      });
+    });
+
   }
 
   loginGoogle(){
-    this.navCtrl.push(SetupLoginPage);
+    let provider = new firebase.auth.GoogleAuthProvider();
+    
+    firebase.auth().signInWithRedirect(provider).then(() =>{
+      firebase.auth().getRedirectResult().then((result) =>{
+        alert(JSON.stringify(result));
+        this.navCtrl.push(SetupLoginPage);
+      }).catch(function(error){
+        alert(JSON.stringify(error));
+      });
+    });
+
   }
 
   toggle(){
