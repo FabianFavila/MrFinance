@@ -4,9 +4,6 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Transaccion } from './../../models/transaccion';
 
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-
 
 @IonicPage()
 @Component({
@@ -23,12 +20,8 @@ export class DetalleTransaccionPage {
 
   form: FormGroup;
 
-  databasetest: AngularFireList<Transaccion>;
-
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, formBuilder: FormBuilder, private database: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, formBuilder: FormBuilder) {
     this.amount = navParams.get('amount');
-
-    this.databasetest = this.database.list('transacciones');
 
     this.form = formBuilder.group({
       titulo: [''],
