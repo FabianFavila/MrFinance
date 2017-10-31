@@ -16,15 +16,19 @@ import { DetalleTransaccionPage } from './../pages/detalle-transaccion/detalle-t
 import { CarterasPage } from './../pages/carteras/carteras';
 
 import firebase from 'firebase';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 
-firebase.initializeApp({
+export const firebaseConfig = {
   apiKey: "AIzaSyBm-2qg-yU82EuDXhK5bGpTWC0wo4zVKLk",
   authDomain: "mr-finance.firebaseapp.com",
   databaseURL: "https://mr-finance.firebaseio.com",
   projectId: "mr-finance",
   storageBucket: "mr-finance.appspot.com",
   messagingSenderId: "923702613206"
-});
+};
+
+firebase.initializeApp(firebaseConfig);
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ firebase.initializeApp({
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,6 +62,7 @@ firebase.initializeApp({
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

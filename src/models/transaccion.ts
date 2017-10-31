@@ -6,5 +6,5 @@ export interface Transaccion {
     icono: string;
     categoria: string;
     fecha: string;
-    cartera: number;
+    cartera: string;
 }

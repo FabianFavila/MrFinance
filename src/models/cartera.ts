@@ -1,4 +1,5 @@
 export interface Cartera {
     nombre: string;
-    color: number;
+    color: string;
+    balance: number;
 }

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AngularFireDatabase  } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 import { Transaccion } from './../../models/transaccion';
+import { Cartera } from './../../models/cartera';
+import { DashboardPage } from './../dashboard/dashboard';
 
 
 @IonicPage()
@@ -12,39 +15,39 @@ import { Transaccion } from './../../models/transaccion';
 })
 
 export class DetalleTransaccionPage {
-  transaccion: Transaccion;
+  itemRef: any;
+  carteras: Observable<any[]>;
 
-  amount: number;
+  transaccion: Transaccion = {
+    titulo: '',
+    cantidad: 0,
+    descripcion: '',
+    tipo: false,
+    icono: '',
+    categoria: '',
+    fecha: '31/Oct',
+    cartera: ''
+  };
 
-  isReadyToSave: boolean;
-
-  form: FormGroup;
-
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, formBuilder: FormBuilder) {
-    this.amount = navParams.get('amount');
-
-    this.form = formBuilder.group({
-      titulo: [''],
-      cantidad: [this.amount],
-      descripcion: [''],
-      tipo: [''],
-      icono: [''],
-      categoria: [''],
-      fecha: [''],
-      cartera: [''],
-    });
-
-    // Watch the form for changes, and
-    this.form.valueChanges.subscribe((v) => {
-      this.isReadyToSave = this.form.valid;
-    });
-
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, db: AngularFireDatabase) {
+    this.transaccion.cantidad = navParams.get('amount');
+    this.itemRef = db.list('test/transacciones/');
+    this.carteras = db.list('/test/carteras').valueChanges();
   }
 
   done() {
-    if (!this.form.valid) { return; }
-    //this.databasetest.push(this.form.value);
-    this.navCtrl.goToRoot;
+    this.itemRef.push({ 
+      titulo: this.transaccion.titulo,
+      cantidad: this.transaccion.cantidad,
+      descripcion: this.transaccion.descripcion,
+      tipo: this.transaccion.tipo,
+      icono: this.transaccion.icono,
+      categoria: this.transaccion.categoria,
+      fecha: this.transaccion.fecha,
+      cartera: this.transaccion.cartera
+    });
+
+    this.navCtrl.push(DashboardPage);
   }
 
 }

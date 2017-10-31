@@ -5,18 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-  <form *ngIf="form" [formGroup]="form" (ngSubmit)="done()">
+  <form (ngSubmit)="done()">
     <div class="amount">
-      <h1>{{amount | currency:'MXN':true}}</h1>
+      <h1>{{transaccion.cantidad | currency:'MXN':true}}</h1>
     </div>
     <ion-grid>
       <ion-row>
         <ion-col>
-          + Ingreso
-        </ion-col>
-          <ion-toggle formControlName="tipo" checked="false"></ion-toggle>
-        <ion-col>
           - Egreso
+        </ion-col>
+          <ion-toggle [(ngModel)]="transaccion.tipo" name="tipo"></ion-toggle>
+        <ion-col>
+          + Ingreso
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -24,16 +24,23 @@
     <ion-list>
       <ion-item>
         <ion-label floating>Titulo</ion-label>
-        <ion-input type="text" formControlName="titulo"></ion-input>
+        <ion-input type="text" [(ngModel)]="transaccion.titulo" name="titulo"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Descripcion</ion-label>
-        <ion-input type="text" formControlName="descripcion"></ion-input>
+        <ion-input type="text" [(ngModel)]="transaccion.descripcion" name="descripcion"></ion-input>
       </ion-item>
+
+      <ion-item>
+          <ion-label>Cartera</ion-label>
+          <ion-select [(ngModel)]="transaccion.cartera" name="cartera">
+            <ion-option [value]="cartera.nombre" *ngFor="let cartera of carteras | async">{{cartera.nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
     </ion-list>
 
-    <button color="secondary" large ion-button type="submit" [disabled]="!form.valid">GUARDAR</button>
+    <button ion-button color="secondary" large block type="submit">GUARDAR</button>
   </form>
 
   

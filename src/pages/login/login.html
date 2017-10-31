@@ -17,6 +17,9 @@
         <ion-icon name="logo-google"></ion-icon>
         Conectar con Google
       </button>
+      <button (click)="login()" ion-button color="google" block>
+        Continuar como invitado
+      </button>
   </div>
   <div class="footer">
     <h4 (click)="toggle()" text-center *ngIf="isNew; else login2">Ya tengo una cuenta</h4>

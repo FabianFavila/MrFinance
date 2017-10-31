@@ -33,21 +33,20 @@ export class LoginPage {
       avatar : "",
       email : "test@gmail.com",
       token: "",
-      balance: 2500
+      balance: 0
     } 
   }
 
   loginFacebook(){
-    this.storage.set('currentuser', this.user);
-    
-    this.navCtrl.push(SetupLoginPage, { 'user':this.user });
-
-    /* let provider = new firebase.auth.FacebookAuthProvider();
+    let provider = new firebase.auth.FacebookAuthProvider();
 
     firebase.auth().signInWithRedirect(provider).then(() =>{
       firebase.auth().getRedirectResult().then((result) =>{
-        alert(JSON.stringify(result));
-        this.navCtrl.push(SetupLoginPage, this.user);
+        this.user.nombre = result.user.displayName;
+        this.user.email = result.user.email;
+        this.user.token = result.user.uid;
+        this.storage.set('currentuser', this.user);
+        this.navCtrl.push(SetupLoginPage, { 'user':this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
@@ -60,7 +59,7 @@ export class LoginPage {
         });
         alert.present();
       });
-    }); */
+    });
   }
 
   loginTwitter(){
@@ -69,7 +68,7 @@ export class LoginPage {
     firebase.auth().signInWithRedirect(provider).then(() =>{
       firebase.auth().getRedirectResult().then((result) =>{
         alert(JSON.stringify(result));
-        this.navCtrl.push(SetupLoginPage);
+        this.navCtrl.push(SetupLoginPage, { 'user':this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
@@ -92,7 +91,7 @@ export class LoginPage {
     firebase.auth().signInWithRedirect(provider).then(() =>{
       firebase.auth().getRedirectResult().then((result) =>{
         alert(JSON.stringify(result));
-        this.navCtrl.push(SetupLoginPage);
+        this.navCtrl.push(SetupLoginPage, { 'user':this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
@@ -106,7 +105,11 @@ export class LoginPage {
         alert.present();
       });
     });
+  }
 
+  login(){
+    this.storage.set('currentuser', this.user);
+    this.navCtrl.push(SetupLoginPage, { 'user':this.user });
   }
 
   toggle(){

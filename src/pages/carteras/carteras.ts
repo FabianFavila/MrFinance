@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AngularFireDatabase  } from 'angularfire2/database';
 
 import { Cartera } from '../../models/cartera';
-
-/**
- * Generated class for the CarterasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DashboardPage } from './../dashboard/dashboard';
 
 @IonicPage()
 @Component({
@@ -16,15 +11,30 @@ import { Cartera } from '../../models/cartera';
   templateUrl: 'carteras.html',
 })
 export class CarterasPage {
+  itemRef: any;
+  
   cartera: Cartera = {
     nombre: "",
-    color: 1
+    color: "",
+    balance: 0
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
+    this.itemRef = db.list('test/carteras/');
   }
 
   saveWallet(){
-    console.log(this.cartera);
+    this.itemRef.push({ 
+      nombre: this.cartera.nombre,
+      color: this.cartera.color,
+      balance: this.cartera.balance 
+    });
+
+    this.navCtrl.push(DashboardPage);
+  }
+
+  setColor(event: Event, col:string){
+    event.preventDefault();
+    this.cartera.color = col;
   }
 }

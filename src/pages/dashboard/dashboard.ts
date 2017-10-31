@@ -4,8 +4,14 @@ import { AgregarTransaccionPage } from '../agregar-transaccion/agregar-transacci
 import { CarterasPage } from '../carteras/carteras';
 
 import { Usuario } from '../../models/usuario';
+import { Transaccion } from '../../models/transaccion';
+import { Cartera } from './../../models/cartera';
 
 import { Storage } from '@ionic/storage';
+
+import firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the DashboardPage page.
@@ -20,6 +26,9 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
+  transacciones: Observable<any[]>;
+  carteras: Observable<any[]>;
+
   user: Usuario = {
     nombre: "",
     balance: 0,
@@ -28,10 +37,16 @@ export class DashboardPage {
     token: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage, afDB: AngularFireDatabase) {
     storage.get('currentuser').then((val) => {
       this.user = val;
     });
+
+    this.carteras = afDB.list('/test/carteras').valueChanges();
+    this.transacciones = afDB.list('/test/transacciones').valueChanges();
+  }
+
+  ionViewDidLoad() {
   }
 
   openMenu(){
