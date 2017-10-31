@@ -10,41 +10,41 @@
 
       <ion-item>
         <ion-label stacked>Nombre</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [(ngModel)]="user.nombre" type="text"></ion-input>
       </ion-item>
       
       <ion-label stacked>Tu avatar</ion-label>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-avatar>
+            <ion-avatar (click)="setAvatar('boy1')">
               <img src="assets/imgs/avatars/boy1.png">
             </ion-avatar>
           </ion-col>
           <ion-col>
-            <ion-avatar>
+            <ion-avatar (click)="setAvatar('boy2')">
               <img src="assets/imgs/avatars/boy2.png">
             </ion-avatar>
           </ion-col>
           <ion-col>
-            <ion-avatar>
+            <ion-avatar (click)="setAvatar('boy3')">
               <img src="assets/imgs/avatars/boy3.png">
             </ion-avatar>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-avatar>
+            <ion-avatar (click)="setAvatar('boy4')">
               <img src="assets/imgs/avatars/boy4.png">
             </ion-avatar>
           </ion-col>
           <ion-col>
-            <ion-avatar>
+            <ion-avatar (click)="setAvatar('miss1')">
               <img src="assets/imgs/avatars/miss1.png">
             </ion-avatar>
           </ion-col>
           <ion-col>
-            <ion-avatar>
+            <ion-avatar (click)="setAvatar('miss2')">
               <img src="assets/imgs/avatars/miss2.png">
             </ion-avatar>
           </ion-col>

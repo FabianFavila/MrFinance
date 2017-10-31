@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AgregarTransaccionPage } from '../agregar-transaccion/agregar-transaccion';
+import { CarterasPage } from '../carteras/carteras';
+
+import { Usuario } from '../../models/usuario';
+
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the DashboardPage page.
@@ -15,8 +20,18 @@ import { AgregarTransaccionPage } from '../agregar-transaccion/agregar-transacci
   templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
+  user: Usuario = {
+    nombre: "",
+    balance: 0,
+    avatar: 'hola',
+    email: '',
+    token: ''
+  };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage) {
+    storage.get('currentuser').then((val) => {
+      this.user = val;
+    });
   }
 
   openMenu(){
@@ -29,6 +44,10 @@ export class DashboardPage {
 
   newTransaction(){
     this.navCtrl.push(AgregarTransaccionPage);
+  }
+
+  newWallet(){
+    this.navCtrl.push(CarterasPage);
   }
 
 }

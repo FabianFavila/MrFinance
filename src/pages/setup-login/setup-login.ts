@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { IntroPage } from '../intro/intro';
 
@@ -18,16 +19,24 @@ import { IntroPage } from '../intro/intro';
   templateUrl: 'setup-login.html',
 })
 export class SetupLoginPage {
+  user: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+    this.user = navParams.get('user');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SetupLoginPage');
+    
   }
 
   openIntro(){
+    this.storage.set('currentuser', this.user);
+    
     this.navCtrl.push(IntroPage);
+  }
+
+  setAvatar(avatar:string){
+    this.user.avatar = "assets/imgs/avatars/" + avatar + ".png";
   }
 
 }

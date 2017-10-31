@@ -7,14 +7,16 @@
         </button>
       </ion-col>
       <ion-col align-self-end>
-        <img src="assets/imgs/avatars/boy1.png" alt="Profile photo" class="profile-photo" (click)="openProfile()">
+        <img [src]="user.avatar" alt="Profile photo" class="profile-photo" (click)="openProfile()">
       </ion-col>
     </ion-row>
   </ion-grid>
   <div class="header" padding>
-    <h3>Bienvenido de nuevo, Fabian. <br>
-      Tu balanza general es de <strong>$3,000</strong></h3>
+    <h3>Bienvenido de nuevo, {{user.nombre}} <br>
+      Tu balanza general es de <strong>{{user.balance | currency:'MXN':true}}</strong></h3>
   </div>
+
+
   <div class="carteras" padding>
     <h5>Carteras</h5>
     <ion-slides spaceBetween="20px">
@@ -22,12 +24,8 @@
         <p>Efectivo</p>
         <h4>$100.00 MXN</h4>
       </ion-slide>
-      <ion-slide class="cartera">
-        <p>Efectivo</p>
-        <h4>$100.00 MXN</h4>
-      </ion-slide>
       <ion-slide class="cartera" style="background-color: white;">
-          <button ion-button icon-only large clear>
+          <button (click)="newWallet()" ion-button icon-only large clear>
               <ion-icon name="add-circle"></ion-icon>
           </button>
       </ion-slide>

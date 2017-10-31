@@ -13,6 +13,7 @@ import { IntroPage } from './../pages/intro/intro';
 import { DashboardPage } from './../pages/dashboard/dashboard';
 import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-transaccion';
 import { DetalleTransaccionPage } from './../pages/detalle-transaccion/detalle-transaccion';
+import { CarterasPage } from './../pages/carteras/carteras';
 
 import firebase from 'firebase';
 
@@ -33,7 +34,8 @@ firebase.initializeApp({
     SetupLoginPage,
     DashboardPage,
     AgregarTransaccionPage,
-    DetalleTransaccionPage
+    DetalleTransaccionPage,
+    CarterasPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ firebase.initializeApp({
     SetupLoginPage,
     DashboardPage,
     AgregarTransaccionPage,
-    DetalleTransaccionPage
+    DetalleTransaccionPage,
+    CarterasPage
   ],
   providers: [
     StatusBar,

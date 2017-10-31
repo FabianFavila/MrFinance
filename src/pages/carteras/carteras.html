@@ -1,18 +1,48 @@
-<!--
-  Generated template for the CarterasPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Carteras</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Nueva cartera</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+  <form (ngSubmit)="saveWallet()">
+    <ion-item>
+      <ion-label stacked>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="cartera.nombre" name="nombre"></ion-input>
+    </ion-item>
+    
+    <ion-label stacked>Color:</ion-label>
+    <ion-grid>
+      <ion-row justify-content-around>
+        <ion-col>
+            <button (click)="" full ion-button color="color1"></button>
+        </ion-col>
+        <ion-col>
+            <button full ion-button color="color2"></button>
+        </ion-col>
+        <ion-col>
+            <button full ion-button color="color3"></button>
+        </ion-col>
+        <ion-col>
+            <button full ion-button color="color4"></button>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-around>
+        <ion-col>
+            <button full ion-button color="color5"></button>
+        </ion-col>
+        <ion-col>
+            <button full ion-button color="color6"></button>
+        </ion-col>
+        <ion-col>
+            <button full ion-button color="color7"></button>
+        </ion-col>
+        <ion-col>
+            <button full ion-button color="color8"></button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+    <button ion-button color="secondary" large block type="submit">GUARDAR</button>
+  </form>
 </ion-content>

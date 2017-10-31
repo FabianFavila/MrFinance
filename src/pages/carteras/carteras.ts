@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Cartera } from '../../models/cartera';
+
 /**
  * Generated class for the CarterasPage page.
  *
@@ -14,12 +16,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'carteras.html',
 })
 export class CarterasPage {
+  cartera: Cartera = {
+    nombre: "",
+    color: 1
+  };
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CarterasPage');
+  saveWallet(){
+    console.log(this.cartera);
   }
-
 }
