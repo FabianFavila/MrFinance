@@ -5,19 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { MyApp } from './app.component';
-
-import { LoginPage } from './../pages/login/login';
-import { SetupLoginPage } from './../pages/setup-login/setup-login';
-import { IntroPage } from './../pages/intro/intro';
-import { DashboardPage } from './../pages/dashboard/dashboard';
-import { AgregarTransaccionPage } from './../pages/agregar-transaccion/agregar-transaccion';
-import { DetalleTransaccionPage } from './../pages/detalle-transaccion/detalle-transaccion';
-import { CarterasPage } from './../pages/carteras/carteras';
-
 import firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+
+import { MyApp } from './app.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBm-2qg-yU82EuDXhK5bGpTWC0wo4zVKLk",
@@ -28,18 +20,9 @@ export const firebaseConfig = {
   messagingSenderId: "923702613206"
 };
 
-firebase.initializeApp(firebaseConfig);
-
 @NgModule({
   declarations: [
-    MyApp,
-    LoginPage,
-    IntroPage,
-    SetupLoginPage,
-    DashboardPage,
-    AgregarTransaccionPage,
-    DetalleTransaccionPage,
-    CarterasPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -50,14 +33,7 @@ firebase.initializeApp(firebaseConfig);
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    LoginPage,
-    IntroPage,
-    SetupLoginPage,
-    DashboardPage,
-    AgregarTransaccionPage,
-    DetalleTransaccionPage,
-    CarterasPage
+    MyApp
   ],
   providers: [
     StatusBar,

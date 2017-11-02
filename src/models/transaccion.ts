@@ -1,6 +1,6 @@
 export interface Transaccion {
-    titulo: string,
     cantidad: number;
+    titulo: string,
     descripcion: string;
     tipo: boolean;
     icono: string;

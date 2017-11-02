@@ -32,7 +32,7 @@ export class LoginPage {
       nombre : "Fabian Solano",
       avatar : "",
       email : "test@gmail.com",
-      token: "",
+      uid: "",
       balance: 0
     } 
   }
@@ -44,9 +44,9 @@ export class LoginPage {
       firebase.auth().getRedirectResult().then((result) =>{
         this.user.nombre = result.user.displayName;
         this.user.email = result.user.email;
-        this.user.token = result.user.uid;
+        this.user.uid = result.user.uid;
         this.storage.set('currentuser', this.user);
-        this.navCtrl.push(SetupLoginPage, { 'user':this.user });
+        this.navCtrl.push(SetupLoginPage, { 'user': this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
