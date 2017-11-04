@@ -1,8 +1,7 @@
 <ion-content>
   <div class="header" padding>
-    
-    <h1 text-center *ngIf="isNew; else login">Crear una cuenta</h1>
-    <ng-template #login> <h1 text-center>Iniciar sesión</h1> </ng-template>
+    <h2 text-center *ngIf="isNew; else login">Crear una cuenta</h2>
+    <ng-template #login> <h2 text-center>Iniciar sesión</h2> </ng-template>
   </div>
   <div class="button-group" padding>
       <button (click)="loginFacebook()" ion-button icon-left color="facebook" block>
@@ -17,7 +16,7 @@
         <ion-icon name="logo-google"></ion-icon>
         Conectar con Google
       </button>
-      <button (click)="login()" ion-button color="google" block>
+      <button (click)="loginInvited()" ion-button color="google" block>
         Continuar como invitado
       </button>
   </div>

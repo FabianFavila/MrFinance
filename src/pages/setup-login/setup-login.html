@@ -1,23 +1,32 @@
 <ion-content>
-    <div class="header" padding>
-      <h1 text-center>Ya estamos por terminar...</h1>
-    </div>
-    <div class="form" padding>
-      <p text-center>
-        ... solo configura estos ajustes iniciales de la
-        aplicacion para que tu experiencia sea la mejor.
-      </p>
+  <div class="header" padding>
+    <h2 text-center>Ya estamos por terminar...</h2>
+  </div>
+  <div class="form">
+    <p text-center padding>
+      ... solo configura estos ajustes iniciales de la aplicacion para que tu experiencia sea la mejor.
+    </p>
 
-      <ion-item>
-        <ion-label stacked>Nombre</ion-label>
-        <ion-input [(ngModel)]="user.nombre" type="text"></ion-input>
-      </ion-item>
-      
+    <ion-item>
+      <ion-label stacked>Nombre</ion-label>
+      <ion-input [(ngModel)]="user.nombre" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item margin-top>
+      <ion-label stacked>Moneda</ion-label>
+      <ion-select [(ngModel)]="user.moneda" interface="popover">
+        <ion-option value="mxn">MXN (Peso mexicano)</ion-option>
+        <ion-option value="usd">USD (US Dolar)</ion-option>
+        <ion-option value="eur">EUR (Euro)</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <div padding>
       <ion-label stacked>Tu avatar</ion-label>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-avatar (click)="setAvatar('boy1')">
+            <ion-avatar (click)="setAvatar('boy1')" >
               <img src="assets/imgs/avatars/boy1.png">
             </ion-avatar>
           </ion-col>
@@ -50,8 +59,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-  
-      <button (click)="openIntro()" ion-button color="secondary" block>COMENZAR</button>
+      <button margin-top (click)="openIntro()" ion-button color="secondary" block large>COMENZAR</button>
     </div>
+  </div>
 </ion-content>
-  

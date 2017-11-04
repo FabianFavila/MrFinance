@@ -3,9 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-ang
 import firebase  from 'firebase';
 import { Storage } from '@ionic/storage';
 
-import { SetupLoginPage } from './../setup-login/setup-login';
-import { WelcomePage } from '../welcome/welcome';
-
 import { Usuario } from '../../models/usuario';
 
 /**
@@ -28,13 +25,7 @@ export class LoginPage {
     this.isNew = navParams.get('newPerson');
 
     //This is only for debugging purposes
-    this.user = {
-      nombre : "Fabian Solano",
-      avatar : "",
-      email : "test@gmail.com",
-      uid: "",
-      balance: 0
-    } 
+    this.user = new Usuario("Fabian Solano", "", "test@gmail.com", "", ""); 
   }
 
   loginFacebook(){
@@ -46,14 +37,14 @@ export class LoginPage {
         this.user.email = result.user.email;
         this.user.uid = result.user.uid;
         this.storage.set('currentuser', this.user);
-        this.navCtrl.push(SetupLoginPage, { 'user': this.user });
+        this.navCtrl.push('SetupLoginPage', { 'user': this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
           buttons: [{
             text: 'Volver al inicio',
             handler: () => {
-              this.navCtrl.push(WelcomePage);
+              this.navCtrl.push('WelcomePage');
             }
           }]
         });
@@ -68,14 +59,14 @@ export class LoginPage {
     firebase.auth().signInWithRedirect(provider).then(() =>{
       firebase.auth().getRedirectResult().then((result) =>{
         alert(JSON.stringify(result));
-        this.navCtrl.push(SetupLoginPage, { 'user':this.user });
+        this.navCtrl.push('SetupLoginPage', { 'user':this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
           buttons: [{
             text: 'Volver al inicio',
             handler: () => {
-              this.navCtrl.push(WelcomePage);
+              this.navCtrl.push('WelcomePage');
             }
           }]
         });
@@ -91,14 +82,14 @@ export class LoginPage {
     firebase.auth().signInWithRedirect(provider).then(() =>{
       firebase.auth().getRedirectResult().then((result) =>{
         alert(JSON.stringify(result));
-        this.navCtrl.push(SetupLoginPage, { 'user':this.user });
+        this.navCtrl.push('SetupLoginPage', { 'user':this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
           buttons: [{
             text: 'Volver al inicio',
             handler: () => {
-              this.navCtrl.push(WelcomePage);
+              this.navCtrl.push('WelcomePage');
             }
           }]
         });
@@ -107,9 +98,9 @@ export class LoginPage {
     });
   }
 
-  login(){
+  loginInvited(){
     this.storage.set('currentuser', this.user);
-    this.navCtrl.push(SetupLoginPage, { 'user':this.user });
+    this.navCtrl.push('SetupLoginPage', { 'user':this.user });
   }
 
   toggle(){

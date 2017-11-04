@@ -3,12 +3,13 @@ page-login {
         height: 25%;
         background-color: color($colors, primary);
         position: relative;
-        h1{
+        h2{
             color: color($colors, light);
             position: absolute;
-            bottom: 0;
+            bottom: 20px;
             left: 0px;
             width: 100%;
+            font-size: 30px;
         }
     }
 

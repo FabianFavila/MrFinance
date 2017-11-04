@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { AgregarTransaccionPage } from '../agregar-transaccion/agregar-transaccion';
-import { CarterasPage } from '../carteras/carteras';
+import { Storage } from '@ionic/storage';
+import firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 import { Usuario } from '../../models/usuario';
 import { Transaccion } from '../../models/transaccion';
 import { Cartera } from './../../models/cartera';
-
-import { Storage } from '@ionic/storage';
-
-import firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the DashboardPage page.
@@ -28,20 +24,12 @@ import { Observable } from 'rxjs/Observable';
 export class DashboardPage {
   transacciones: Observable<any[]>;
   carteras: Observable<any[]>;
-
-  user: Usuario = {
-    nombre: "",
-    balance: 0,
-    avatar: 'hola',
-    email: '',
-    token: ''
-  };
+  user = new Usuario("", "", "", "", "mxn"); 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage, afDB: AngularFireDatabase) {
-    storage.get('currentuser').then((val) => {
-      this.user = val;
+    this.storage.get('currentuser').then((val) => {
+      this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda);
     });
-
     this.carteras = afDB.list('/test/carteras').valueChanges();
     this.transacciones = afDB.list('/test/transacciones').valueChanges();
   }
@@ -58,11 +46,11 @@ export class DashboardPage {
   }
 
   newTransaction(){
-    this.navCtrl.push(AgregarTransaccionPage);
+    this.navCtrl.push('AgregarTransaccionPage');
   }
 
   newWallet(){
-    this.navCtrl.push(CarterasPage);
+    this.navCtrl.push('CarterasPage');
   }
 
 }

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { LoginPage } from './../login/login';
-
 
 @IonicPage()
 @Component({
@@ -15,10 +13,10 @@ export class WelcomePage {
   }
 
   login() {
-    this.navCtrl.push(LoginPage, { newPerson: false });
+    this.navCtrl.push('LoginPage', { newPerson: false });
   }
 
   signup() {
-    this.navCtrl.push(LoginPage, { newPerson: true });
+    this.navCtrl.push('LoginPage', { newPerson: true });
   }
 }
