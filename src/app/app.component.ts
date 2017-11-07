@@ -7,13 +7,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = 'WelcomePage';
+  rootPage:any = 'DashboardPage';
 
   @ViewChild(Nav) nav: Nav;
   
   pages: any[] = [
     { title: 'Dashboard', component: 'DashboardPage' },
-    { title: 'Carteras', component: 'CarterasPage' },
     { title: 'Planes de ahorro', component: 'PlanesDeAhorroPage' },
     { title: 'Facturas', component: 'FacturasPage' },
     { title: 'Prestamos', component: 'PrestamosPage' }
@@ -32,7 +31,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
 }
 

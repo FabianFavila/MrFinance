@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { DetalleTransaccionPage } from './../detalle-transaccion/detalle-transaccion';
-
 /**
  * Generated class for the AgregarTransaccionPage page.
  *
@@ -17,6 +15,7 @@ import { DetalleTransaccionPage } from './../detalle-transaccion/detalle-transac
 })
 export class AgregarTransaccionPage {
   amount: number = 0;
+  decimal: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -34,8 +33,12 @@ export class AgregarTransaccionPage {
   }
 
   confirm(){
-    this.navCtrl.push(DetalleTransaccionPage, {
+    this.navCtrl.push('DetalleTransaccionPage', {
       amount: this.amount
     })
+  }
+
+  toggle(){
+    this.decimal = this.decimal ? false : true;
   }
 }

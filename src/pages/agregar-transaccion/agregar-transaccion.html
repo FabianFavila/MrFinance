@@ -2,6 +2,11 @@
 
   <ion-navbar color="primary">
     <ion-title>Agregar transacción</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="confirm()">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -47,16 +52,14 @@
       </ion-row>
       <ion-row align-items-center  justify-content-around>
         <ion-col col-3>
-          <button (click)="substractNumber()" ion-button large color="dark" icon-only>
-            <ion-icon name="backspace"></ion-icon>
-          </button>
+          <button (click)="toggle()" ion-button [clear]="!decimal" round large color="dark"><h1>.</h1></button>
         </ion-col>
         <ion-col col-3>
           <button (click)="addNumber(0)" ion-button clear round large color="dark"><h1>0</h1></button>
         </ion-col>
         <ion-col col-3>
-          <button (click)="confirm()" ion-button large color="primary" icon-only>
-            <ion-icon name="checkmark-circle"></ion-icon>
+          <button (click)="substractNumber()" ion-button large color="dark" icon-only clear>
+            <ion-icon name="backspace"></ion-icon>
           </button>
         </ion-col>
       </ion-row>

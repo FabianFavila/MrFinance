@@ -4,19 +4,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <form (ngSubmit)="done()">
-    <div class="amount">
-      <h1>{{transaccion.cantidad | currency:'MXN':true}}</h1>
+<ion-content>
+  <form [formGroup]="transaccion" (ngSubmit)="done()">
+    <div class="amount" padding>
+      <h1>{{cantidad | currency:'MXN':true}}</h1>
     </div>
     <ion-grid>
-      <ion-row>
-        <ion-col>
-          - Egreso
+      <ion-row align-items-center justify-content-center>
+        <ion-col col-5 text-center>
+          <h3>- Egreso</h3>
         </ion-col>
-          <ion-toggle [(ngModel)]="transaccion.tipo" name="tipo"></ion-toggle>
-        <ion-col>
-          + Ingreso
+        <ion-col col-2>
+          <ion-toggle formControlName="tipo"></ion-toggle>
+        </ion-col>
+        <ion-col col-5 text-center>
+          <h3>+ Ingreso</h3>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -24,23 +26,37 @@
     <ion-list>
       <ion-item>
         <ion-label floating>Titulo</ion-label>
-        <ion-input type="text" [(ngModel)]="transaccion.titulo" name="titulo"></ion-input>
+        <ion-input type="text" formControlName="titulo"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Descripcion</ion-label>
-        <ion-input type="text" [(ngModel)]="transaccion.descripcion" name="descripcion"></ion-input>
+        <ion-input type="text" formControlName="descripcion"></ion-input>
       </ion-item>
+
+      <ion-grid>
+        <ion-row align-items-center justify-content-center>
+          <ion-col col-3>
+            <img *ngIf="categoria; else elseBlock" [src]="categoriaAvatar" alt="Category" class="category">
+            <ng-template #elseBlock>
+              <img src="assets/imgs/categories/otros.png" alt="Category" class="category">
+            </ng-template>
+          </ion-col>
+          <ion-col col-9 text-center (click)="selectCategory()">
+            <h6>HAZ CLIC PARA <br> SELECCIONAR LA CATEGORIA</h6>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
       <ion-item>
           <ion-label>Cartera</ion-label>
-          <ion-select [(ngModel)]="transaccion.cartera" name="cartera">
+          <ion-select formControlName="cartera">
             <ion-option [value]="cartera.nombre" *ngFor="let cartera of carteras | async">{{cartera.nombre}}</ion-option>
           </ion-select>
         </ion-item>
     </ion-list>
 
-    <button ion-button color="secondary" large block type="submit">GUARDAR</button>
+    <button ion-button color="secondary" large block type="submit" [disabled]="!transaccion.valid">GUARDAR</button>
   </form>
 
   
