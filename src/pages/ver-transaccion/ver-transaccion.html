@@ -1,18 +1,44 @@
-<!--
-  Generated template for the VerTransaccionPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>VerTransaccion</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Transaccion</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addItem()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="addItem()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
+  <ion-grid margin-top padding>
+    <ion-row align-items-center justify-content-center>
+      <ion-col col-3>
+        <img [src]="transaccion?.icono" alt="Category" class="category">
+      </ion-col>
+      <ion-col col-9 text-center>
+        <h2 class="titulo">{{transaccion?.titulo}}</h2>
+        <h1 class="cantidad">{{transaccion?.cantidad | currency:'MXN':true}}</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item-group margin-top>
+    <ion-item-divider color="light">Descripcion</ion-item-divider>
+    <ion-item>{{transaccion?.descripcion}}</ion-item>
+  </ion-item-group>
+  <ion-item-group margin-top>
+    <ion-item-divider color="light">Categoria</ion-item-divider>
+    <ion-item>{{transaccion?.categoria}}</ion-item>
+  </ion-item-group>
+  <ion-item-group margin-top>
+    <ion-item-divider color="light">Fecha</ion-item-divider>
+    <ion-item>{{transaccion?.fecha}}</ion-item>
+  </ion-item-group>
+  <ion-item-group margin-top>
+    <ion-item-divider color="light">Cartera</ion-item-divider>
+    <ion-item>{{transaccion?.cartera}}</ion-item>
+  </ion-item-group>
 
 </ion-content>

@@ -53,4 +53,8 @@ export class DashboardPage {
     this.navCtrl.push('CarterasPage');
   }
 
+  viewTransaction(txn: any){
+    this.navCtrl.push('VerTransaccionPage', { transaccion: txn });
+  }
+
 }

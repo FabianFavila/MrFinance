@@ -1,3 +1,9 @@
 page-ver-transaccion {
+    .titulo{
+        font-style: italic;
+    }
 
+    .cantidad{
+        color: color($colors, danger);
+    }
 }

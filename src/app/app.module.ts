@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
@@ -38,6 +39,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
+    DatePicker,
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

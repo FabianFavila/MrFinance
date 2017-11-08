@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { AngularFireDatabase  } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { Transaccion } from './../../models/transaccion';
 import { Cartera } from './../../models/cartera';
+import { Categoria } from '../../models/categoria';
 
 @IonicPage()
 @Component({
@@ -14,45 +15,71 @@ import { Cartera } from './../../models/cartera';
 })
 
 export class DetalleTransaccionPage {
-  cantidad: number = 0;
-  categoria: string;
-  categoriaAvatar: string;
   itemRef: any;
   carteras: Observable<any[]>;
-  private transaccion : FormGroup;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, db: AngularFireDatabase, private formBuilder: FormBuilder, public modalCtrl: ModalController) {
-    this.cantidad = navParams.get('amount');
+  transaccion : Transaccion = {
+    cantidad: 0,
+    titulo: '',
+    descripcion: '',
+    tipo: false,
+    icono: '',
+    categoria: '',
+    fecha: '',
+    cartera: '' 
+  };
+
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, db: AngularFireDatabase, public modalCtrl: ModalController, private datePicker: DatePicker) {
+    this.transaccion.cantidad = navParams.get('amount');
     this.itemRef = db.list('test/transacciones/');
     this.carteras = db.list('/test/carteras').valueChanges();
-
-    this.transaccion = this.formBuilder.group({
-      cantidad: [navParams.get('amount')],
-      titulo: [''],
-      descripcion: [''],
-      tipo: [false],
-      icono: [''],
-      categoria: [''],
-      fecha: ['31/Oct'],
-      cartera: ['']
-    });
   }
 
   selectCategory(){
     let categoriesModal = this.modalCtrl.create('CategoriasPage');
     categoriesModal.onDidDismiss((category, avatar) => {
       if (category) {
-        this.categoria = category;
-        this.categoriaAvatar = "assets/imgs/categories/"+avatar+".png";
+        this.transaccion.categoria = category;
+        this.transaccion.icono = "assets/imgs/categories/"+avatar+".png";
       }
     });
     categoriesModal.present();
   }
 
+  selectDate(){
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1;
+    
+    if(dd<10) {
+        dd = +('0'+dd)
+    } 
+    
+    if(mm<10) {
+        mm = +('0'+mm)
+    } 
+    
+    this.transaccion.fecha = dd + ' / ' + mm;
+    alert(this.transaccion.fecha);
+    
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      titleText: "Fecha de transaccion"
+    }).then(
+      date => {
+        alert('Got date: ' + date);
+        //this.transaccion.fecha = date;
+      },
+      err => alert('Error occurred while getting date: ' + err)
+    );
+  }
+
   done() {
-    this.itemRef.push(this.transaccion.value);
+    console.log(this.transaccion);
+    this.itemRef.push(this.transaccion);
 
     this.navCtrl.push('DashboardPage');
   }
-
 }

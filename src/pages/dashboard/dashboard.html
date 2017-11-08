@@ -22,7 +22,7 @@
     <ion-slides spaceBetween="20px">
       <ion-slide class="cartera" *ngFor="let cartera of carteras | async">
         <p text-capitalize>{{cartera.nombre}}</p>
-        <h4 color="cartera.color">{{cartera.balance | currency:user.moneda:true}}</h4>
+        <h4>{{cartera.balance | currency:user.moneda:true}}</h4>
       </ion-slide>
       <ion-slide class="cartera" style="background-color: white;">
           <button (click)="newWallet()" ion-button icon-only large clear>
@@ -33,11 +33,11 @@
   </div>
   <div class="transacciones">
       <h5 padding-left>Ultimos registros</h5>
-      <ion-card class="transaccion" *ngFor="let transaccion of transacciones | async">
+      <ion-card class="transaccion" *ngFor="let transaccion of transacciones | async" (click)="viewTransaction(transaccion)">
         <ion-grid>
           <ion-row align-items-center>
             <ion-col col-3>
-              <img src="assets/imgs/categories/books.png" alt="Category" class="category">
+              <img [src]="transaccion.icono" alt="Category" class="category">
             </ion-col>
             <ion-col col-9>
               <h1 class="amount">{{transaccion.cantidad | currency:user.moneda:true}}</h1>

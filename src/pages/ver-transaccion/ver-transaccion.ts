@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the VerTransaccionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Transaccion } from '../../models/transaccion';
 
 @IonicPage()
 @Component({
@@ -14,12 +8,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'ver-transaccion.html',
 })
 export class VerTransaccionPage {
+  transaccion: Transaccion;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.transaccion = navParams.get('transaccion');
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad VerTransaccionPage');
-  }
-
 }
