@@ -1,3 +1,14 @@
 page-carteras {
+    .transaccion{
+        background-color: #D7E5DC;
 
+        .category{
+            max-width: 90%;
+        }
+
+        .amount{
+            text-align: center;
+            font-size: 32px;
+        }
+    }
 }

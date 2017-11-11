@@ -3,5 +3,5 @@ export interface PlanDeAhorro{
     objetivo: number,
     fecha_inicio: string,
     fecha_termino: string,
-    ahorro_diario: string
+    ahorro_diario: number
 }

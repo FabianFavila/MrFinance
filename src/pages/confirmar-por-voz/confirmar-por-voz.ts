@@ -14,12 +14,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'confirmar-por-voz.html',
 })
 export class ConfirmarPorVozPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  transaccion: any = {
+    cantidad: 250,
+    cartera: "Tarjeta banamex",
+    fecha: "15/07",
+    tipo: false
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfirmarPorVozPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
 }

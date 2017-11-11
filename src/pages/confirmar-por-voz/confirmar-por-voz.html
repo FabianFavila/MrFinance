@@ -1,18 +1,41 @@
-<!--
-  Generated template for the ConfirmarPorVozPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>ConfirmarPorVoz</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Agregar transacciones</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="cancel()">Guardar</button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <h3 margin-bottom>Estos son los resultados: </h3>
+  <ion-card class="transaccion">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col col-12>
+          <h1 class="amount">{{transaccion.cantidad | currency:mxn:true}}</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-around>
+        <ion-col col-5>
+          {{transaccion.cartera}}
+        </ion-col>
+        <ion-col col-3>
+          {{transaccion.fecha}}
+        </ion-col>
+        <ion-col col-4 *ngIf="transaccion.tipo; else elseBlock">
+          + Ingreso
+        </ion-col>
+        <ng-template #elseBlock>
+          <ion-col col-3>
+            - Gasto
+          </ion-col>
+        </ng-template>
+      </ion-row>
+    </ion-grid>
+    <ion-item>
+      <button ion-button clear item-start>EDITAR</button>
+      <button ion-button clear item-end>ELIMINAR</button>
+    </ion-item>
+  </ion-card>
 </ion-content>

@@ -5,12 +5,6 @@ import { Storage } from '@ionic/storage';
 
 import { Usuario } from '../../models/usuario';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -25,7 +19,7 @@ export class LoginPage {
     this.isNew = navParams.get('newPerson');
 
     //This is only for debugging purposes
-    this.user = new Usuario("Fabian Solano", "", "test@gmail.com", "", ""); 
+    this.user = new Usuario("Fabian Solano", "assets/imgs/avatars/boy4.png", "test@gmail.com", "uiddeprueba123", "MXN", 0); 
   }
 
   loginFacebook(){
@@ -36,7 +30,6 @@ export class LoginPage {
         this.user.nombre = result.user.displayName;
         this.user.email = result.user.email;
         this.user.uid = result.user.uid;
-        this.storage.set('currentuser', this.user);
         this.navCtrl.push('SetupLoginPage', { 'user': this.user });
       }).catch(function(error){
         const alert = this.alertCtrl.create({

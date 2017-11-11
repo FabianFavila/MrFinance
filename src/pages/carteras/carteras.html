@@ -1,48 +1,43 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Nueva cartera</ion-title>
+    <ion-title>Tarjeta banamex</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="saveWallet()">
-    <ion-item>
-      <ion-label stacked>Nombre</ion-label>
-      <ion-input type="text" [(ngModel)]="cartera.nombre" name="nombre"></ion-input>
-    </ion-item>
-    
-    <ion-label stacked>Color:</ion-label>
-    <ion-grid>
-      <ion-row justify-content-around>
-        <ion-col>
-            <button (click)="setColor($event, 'color1')" full ion-button color="color1"></button>
-        </ion-col>
-        <ion-col>
-            <button (click)="setColor($event, 'color2')" full ion-button color="color2"></button>
-        </ion-col>
-        <ion-col>
-            <button (click)="setColor($event, 'color3')" full ion-button color="color3"></button>
-        </ion-col>
-        <ion-col>
-            <button (click)="setColor($event, 'color4')" full ion-button color="color4"></button>
-        </ion-col>
-      </ion-row>
-      <ion-row justify-content-around>
-        <ion-col>
-            <button (click)="setColor($event, 'color5')" full ion-button color="color5"></button>
-        </ion-col>
-        <ion-col>
-            <button (click)="setColor($event, 'color6')" full ion-button color="color6"></button>
-        </ion-col>
-        <ion-col>
-            <button (click)="setColor($event, 'color7')" full ion-button color="color7"></button>
-        </ion-col>
-        <ion-col>
-            <button (click)="setColor($event, 'color8')" full ion-button color="color8"></button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <button ion-button color="secondary" large block type="submit">GUARDAR</button>
-  </form>
+    <div class="transacciones">
+        <h5 padding-left>Ultimos registros</h5>
+        <ion-card class="transaccion" (click)="viewTransaction(transaccion)">
+          <ion-grid>
+            <ion-row align-items-center>
+              <ion-col col-3>
+                <img [src]="transaccion.icono" alt="Category" class="category">
+              </ion-col>
+              <ion-col col-9>
+                <h1 class="amount">{{transaccion.cantidad | currency:user.moneda:true}}</h1>
+              </ion-col>
+            </ion-row>
+            <ion-row justify-content-around>
+                <ion-col col-6>
+                  {{transaccion.cartera}}
+                </ion-col>
+                <ion-col col-3>
+                    {{transaccion.fecha}}
+                </ion-col>
+                <ion-col col-3 *ngIf="transaccion.tipo; else elseBlock">
+                  + Ingreso
+                </ion-col>
+                <ng-template #elseBlock>
+                    <ion-col col-3>
+                      - Gasto
+                    </ion-col>
+                </ng-template>
+              </ion-row>
+          </ion-grid>
+        </ion-card>
+    </div>
+  
+    <ion-fab right bottom>
+      <button ion-fab color="gray"><ion-icon name="md-create"></ion-icon></button>
+    </ion-fab>
 </ion-content>

@@ -4,26 +4,30 @@
             <ion-title>Menu</ion-title>
         </ion-toolbar>
     </ion-header>
-
     <ion-content>
         <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-            {{p.title}}
-        </button>
+            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                <ion-icon item-start [name]="p.icon"></ion-icon>
+                {{p.title}}
+            </button>
         </ion-list>
     </ion-content>
 </ion-menu>
 
 <ion-menu side="right" [content]="content" swipeEnabled="false">
-    <ion-content padding>
-        <img src="assets/imgs/avatars/boy1.png" alt="Profile photo">
-        <h1 style="text-align:center;">Fabian Solano</h1>
+    <ion-content>
+        <img [src]="user?.avatar" alt="Profile photo" style="display:block; margin:auto; margin-top:30px;">
+        <h1 style="text-align:center; margin-bottom:40px;">{{user?.nombre}}</h1>
         <!-- Float the icon left -->
-        <button ion-button icon-left full>
-            <ion-icon name="contact"></ion-icon>
+        <button ion-button full large>
             Cambiar mi informacion
         </button>
     </ion-content>
+    <ion-footer>
+        <ion-toolbar color="danger">
+            <button ion-button color="light" clear full large>Cerrar sesión</button>
+        </ion-toolbar>
+    </ion-footer>
 </ion-menu>
 
 <ion-nav #content [root]="rootPage"></ion-nav>

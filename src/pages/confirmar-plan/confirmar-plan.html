@@ -1,18 +1,56 @@
-<!--
-  Generated template for the ConfirmarPlanPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>ConfirmarPlan</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Seleccionar plan de ahorro</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <h3 margin-bottom>Selecciona el plan de ahorro que mas se adapte a tu necesidad o personalizalo </h3>
+  <ion-card class="plan">
+    <ion-grid>
+      <ion-row align-items-center margin-top>
+        <ion-col col-12>
+          <h1 class="titulo">"{{dummyplan.titulo}}"</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center text-center margin-top>
+        <ion-col col-3>
+          Objetivo:
+        </ion-col>
+        <ion-col col-5>
+          <h2 class="subtitulo">
+            {{dummyplan.objetivo | currency:mxn:true}}
+          </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row text-center margin-top>
+        <ion-col col-6>
+          Inicio:
+          <br>
+          <h2 class="subtitulo">{{dummyplan.fecha_inicio}}</h2>
+        </ion-col>
+        <ion-col col-6>
+          Termino:
+          <br>
+          <h2 class="subtitulo">{{dummyplan.fecha_termino}}</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col col-6 class="diario">
+          <h2 class="subtitulo">{{dummyplan.ahorro_diario | currency:mxn:true}}</h2>
+          Diarios
+        </ion-col>
+        <ion-col col-6 class="semanal">
+          <h2 class="subtitulo">{{dummyplan.ahorro_diario * 7 | currency:mxn:true}}</h2>
+          Semanales
+        </ion-col>
+      </ion-row>
+      <ion-row padding-top padding-bottom text-center class="restante">
+        <ion-col col-12>
+          Cantidad faltante:
+          <h1>{{dummyplan.objetivo - dummyplan.ahorro_diario | currency:mxn:true}}</h1>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 </ion-content>

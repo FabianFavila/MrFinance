@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the PlanesDeAhorroPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PlanDeAhorro } from '../../models/plan-de-ahorro';
 
 @IonicPage()
 @Component({
@@ -14,12 +8,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'planes-de-ahorro.html',
 })
 export class PlanesDeAhorroPage {
+  dummyplan : PlanDeAhorro = {
+    titulo: "Mazatlan 2018",
+    objetivo: 5500,
+    fecha_inicio: "17/12/2017",
+    fecha_termino: "17/03/2018",
+    ahorro_diario: 90
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PlanesDeAhorroPage');
+  newPlan(){
+    this.navCtrl.push('AgregarPlanPage');
   }
 
 }

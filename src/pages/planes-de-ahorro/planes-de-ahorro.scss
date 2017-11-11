@@ -1,3 +1,36 @@
 page-planes-de-ahorro {
+    .plan{
+        .titulo{
+            text-align: center;
+            font-style: italic;
+            font-weight: bold;
+        }
 
+        .subtitulo{
+            font-size: 18px;
+            
+        }
+
+        .diario{
+            background-color: color($colors, secondary);
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        .semanal{
+            background-color: #C5C049;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        .restante{
+            background-color: color($colors, brown);
+            color: color($colors, gray);
+
+            h1{
+                margin-top: 10px;
+                color: rgb(228, 228, 228);
+            }
+        }
+    }
 }

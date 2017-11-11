@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase  } from 'angularfire2/database';
 
 import { Cartera } from '../../models/cartera';
-import { DashboardPage } from './../dashboard/dashboard';
+import { Transaccion } from '../../models/transaccion';
 
 @IonicPage()
 @Component({
@@ -11,30 +11,22 @@ import { DashboardPage } from './../dashboard/dashboard';
   templateUrl: 'carteras.html',
 })
 export class CarterasPage {
-  itemRef: any;
-  
-  cartera: Cartera = {
-    nombre: "",
-    color: "",
-    balance: 0
+  transaccion : Transaccion = {
+    cantidad: 0,
+    titulo: '',
+    descripcion: '',
+    tipo: false,
+    icono: '',
+    categoria: '',
+    fecha: '',
+    cartera: '' 
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
-    this.itemRef = db.list('test/carteras/');
+    
   }
 
-  saveWallet(){
-    this.itemRef.push({ 
-      nombre: this.cartera.nombre,
-      color: this.cartera.color,
-      balance: this.cartera.balance 
-    });
-
-    this.navCtrl.push(DashboardPage);
-  }
-
-  setColor(event: Event, col:string){
-    event.preventDefault();
-    this.cartera.color = col;
+  viewTransaction(txn: any){
+    this.navCtrl.push('VerTransaccionPage', { transaccion: txn });
   }
 }

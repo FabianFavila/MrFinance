@@ -2,19 +2,14 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
 import { Usuario } from '../../models/usuario';
 import { Transaccion } from '../../models/transaccion';
 import { Cartera } from './../../models/cartera';
 
-/**
- * Generated class for the DashboardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -22,16 +17,21 @@ import { Cartera } from './../../models/cartera';
   templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
+  balance: Observable<any>;
   transacciones: Observable<any[]>;
   carteras: Observable<any[]>;
-  user = new Usuario("", "", "", "", "mxn"); 
+
+  user = new Usuario("", "", "", "", "mxn", 0); 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage, afDB: AngularFireDatabase) {
     this.storage.get('currentuser').then((val) => {
-      this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda);
+      this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda, val.balance);
     });
-    this.carteras = afDB.list('/test/carteras').valueChanges();
-    this.transacciones = afDB.list('/test/transacciones').valueChanges();
+
+    this.balance = afDB.object('/' + this.user.uid + '/balance').valueChanges();;
+    
+    this.carteras = afDB.list('/'+ this.user.uid +'/carteras').valueChanges();
+    this.transacciones = afDB.list('/'+ this.user.uid +'/transacciones').valueChanges();
   }
 
   ionViewDidLoad() {
@@ -50,11 +50,15 @@ export class DashboardPage {
   }
 
   newWallet(){
-    this.navCtrl.push('CarterasPage');
+    this.navCtrl.push('AgregarCarteraPage');
   }
 
   viewTransaction(txn: any){
     this.navCtrl.push('VerTransaccionPage', { transaccion: txn });
+  }
+
+  voiceTransactions(){
+    this.navCtrl.push('AgregarPorVozPage');
   }
 
 }
