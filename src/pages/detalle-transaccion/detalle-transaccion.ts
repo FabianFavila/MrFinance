@@ -30,9 +30,10 @@ export class DetalleTransaccionPage {
   };
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, db: AngularFireDatabase, public modalCtrl: ModalController, private datePicker: DatePicker) {
+    let uid = this.navParams.get('uid');
     this.transaccion.cantidad = navParams.get('amount');
-    this.itemRef = db.list('test/transacciones/');
-    this.carteras = db.list('/test/carteras').valueChanges();
+    this.itemRef = db.list(uid + '/transacciones/');
+    this.carteras = db.list(uid + '/carteras').valueChanges();
   }
 
   selectCategory(){

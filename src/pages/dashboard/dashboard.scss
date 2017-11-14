@@ -12,10 +12,9 @@ page-dashboard {
             color: white;
         }
 
-        .cartera{
-            border-color: color($colors, dark);
-            background-color: color($colors, secondary);
-        }   
+        h2{
+            margin-top: -15px;
+        }
     }
 
     .transaccion{

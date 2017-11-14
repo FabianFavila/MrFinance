@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Config, Nav, Platform } from 'ionic-angular';
+import { Config, Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -22,7 +22,7 @@ export class MyApp {
     { title: 'Prestamos', component: 'PrestamosPage', icon: 'ios-people' }
   ]
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config, private storage: Storage) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config, private storage: Storage, public menuCtrl: MenuController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -46,6 +46,18 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.push(page.component);
+  }
+
+  changeProfile(){
+    this.nav.push('ProfilePage');
+  }
+
+  logout(){
+    this.storage.clear().then(()=>{
+      this.menuCtrl.close();
+      this.rootPage = 'WelcomePage';
+      this.nav.popToRoot();
+    });
   }
 }
 

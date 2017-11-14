@@ -19,13 +19,13 @@
         <img [src]="user?.avatar" alt="Profile photo" style="display:block; margin:auto; margin-top:30px;">
         <h1 style="text-align:center; margin-bottom:40px;">{{user?.nombre}}</h1>
         <!-- Float the icon left -->
-        <button ion-button full large>
+        <button (click)="changeProfile()" ion-button full large>
             Cambiar mi informacion
         </button>
     </ion-content>
     <ion-footer>
         <ion-toolbar color="danger">
-            <button ion-button color="light" clear full large>Cerrar sesión</button>
+            <button (click)="logout()" ion-button color="light" clear full large>Cerrar sesión</button>
         </ion-toolbar>
     </ion-footer>
 </ion-menu>

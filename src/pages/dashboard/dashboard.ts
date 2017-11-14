@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import firebase from 'firebase';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
@@ -21,44 +21,56 @@ export class DashboardPage {
   transacciones: Observable<any[]>;
   carteras: Observable<any[]>;
 
-  user = new Usuario("", "", "", "", "mxn", 0); 
+  user = new Usuario("", "", "", "", "mxn", 0);
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage, afDB: AngularFireDatabase) {
-    this.storage.get('currentuser').then((val) => {
-      this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda, val.balance);
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage, afDB: AngularFireDatabase, public loadingCtrl: LoadingController) {
+    let loading = this.loadingCtrl.create({
+      content: 'Cargando datos...'
     });
 
-    this.balance = afDB.object('/' + this.user.uid + '/balance').valueChanges();;
-    
-    this.carteras = afDB.list('/'+ this.user.uid +'/carteras').valueChanges();
-    this.transacciones = afDB.list('/'+ this.user.uid +'/transacciones').valueChanges();
+    loading.present();
+
+    this.storage.get('currentuser').then((val) => {
+
+      this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda, val.balance);
+
+      this.balance = afDB.object('/' + val.uid + '/balance').valueChanges();
+
+      this.carteras = afDB.list('/' + val.uid + '/carteras').valueChanges();
+      this.transacciones = afDB.list('/' + val.uid + '/transacciones').valueChanges();
+
+      loading.dismiss();
+    });
+
   }
 
-  ionViewDidLoad() {
-  }
 
-  openMenu(){
+  // Menu
+  openMenu() {
     this.menuCtrl.toggle();
   }
 
-  openProfile(){
+  openProfile() {
     this.menuCtrl.toggle('right');
   }
+  //////////////
 
-  newTransaction(){
-    this.navCtrl.push('AgregarTransaccionPage');
+  // Navegation
+  newTransaction() {
+    this.navCtrl.push('AgregarTransaccionPage', { uid: this.user.uid });
   }
 
-  newWallet(){
-    this.navCtrl.push('AgregarCarteraPage');
+  newWallet() {
+    this.navCtrl.push('AgregarCarteraPage', { uid: this.user.uid });
   }
 
-  viewTransaction(txn: any){
-    this.navCtrl.push('VerTransaccionPage', { transaccion: txn });
+  viewTransaction(txn: any) {
+    this.navCtrl.push('VerTransaccionPage', { transaccion: txn, uid: this.user.uid });
   }
 
-  voiceTransactions(){
+  voiceTransactions() {
     this.navCtrl.push('AgregarPorVozPage');
   }
+  //////////////
 
 }

@@ -34,7 +34,8 @@ export class AgregarTransaccionPage {
 
   confirm(){
     this.navCtrl.push('DetalleTransaccionPage', {
-      amount: this.amount
+      amount: this.amount,
+      uid: this.navParams.get('uid')
     })
   }
 
