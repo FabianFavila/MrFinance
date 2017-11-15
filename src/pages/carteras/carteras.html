@@ -1,43 +1,48 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Tarjeta banamex</ion-title>
+    <ion-title>{{cartera?.nombre}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <div class="transacciones">
-        <h5 padding-left>Ultimos registros</h5>
-        <ion-card class="transaccion" (click)="viewTransaction(transaccion)">
-          <ion-grid>
-            <ion-row align-items-center>
-              <ion-col col-3>
-                <img [src]="transaccion.icono" alt="Category" class="category">
-              </ion-col>
-              <ion-col col-9>
-                <h1 class="amount">{{transaccion.cantidad | currency:user.moneda:true}}</h1>
-              </ion-col>
-            </ion-row>
-            <ion-row justify-content-around>
-                <ion-col col-6>
-                  {{transaccion.cartera}}
-                </ion-col>
-                <ion-col col-3>
-                    {{transaccion.fecha}}
-                </ion-col>
-                <ion-col col-3 *ngIf="transaccion.tipo; else elseBlock">
-                  + Ingreso
-                </ion-col>
-                <ng-template #elseBlock>
-                    <ion-col col-3>
-                      - Gasto
-                    </ion-col>
-                </ng-template>
-              </ion-row>
-          </ion-grid>
-        </ion-card>
-    </div>
-  
-    <ion-fab right bottom>
-      <button ion-fab color="gray"><ion-icon name="md-create"></ion-icon></button>
-    </ion-fab>
+  <div class="balance">
+    <h1>{{cartera?.balance | currency:moneda:true}}</h1>
+  </div>
+  <div class="transacciones">
+    <h5 padding-left>Ultimos registros</h5>
+    <ion-card class="transaccion" (click)="viewTransaction(transaccion)">
+      <ion-grid>
+        <ion-row align-items-center>
+          <ion-col col-3>
+            <img [src]="transaccion?.icono" alt="Category" class="category">
+          </ion-col>
+          <ion-col col-9>
+            <h1 class="amount">{{transaccion?.cantidad | currency:moneda:true}}</h1>
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-around>
+          <ion-col col-6>
+            {{transaccion?.cartera}}
+          </ion-col>
+          <ion-col col-3>
+            {{transaccion?.fecha}}
+          </ion-col>
+          <ion-col col-3 *ngIf="transaccion?.tipo; else elseBlock">
+            + Ingreso
+          </ion-col>
+          <ng-template #elseBlock>
+            <ion-col col-3>
+              - Gasto
+            </ion-col>
+          </ng-template>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="gray">
+      <ion-icon name="md-create"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

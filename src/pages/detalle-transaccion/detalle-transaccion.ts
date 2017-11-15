@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
-import { AngularFireDatabase  } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { DatePicker } from '@ionic-native/date-picker';
 
 import { Transaccion } from './../../models/transaccion';
 import { Cartera } from './../../models/cartera';
 import { Categoria } from '../../models/categoria';
+
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -15,8 +17,9 @@ import { Categoria } from '../../models/categoria';
 })
 
 export class DetalleTransaccionPage {
-  itemRef: any;
+  itemRef: AngularFireList<any>;
   carteras: Observable<any[]>;
+  editable: boolean;
 
   transaccion : Transaccion = {
     cantidad: 0,
@@ -29,11 +32,22 @@ export class DetalleTransaccionPage {
     cartera: '' 
   };
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, db: AngularFireDatabase, public modalCtrl: ModalController, private datePicker: DatePicker) {
-    let uid = this.navParams.get('uid');
-    this.transaccion.cantidad = navParams.get('amount');
-    this.itemRef = db.list(uid + '/transacciones/');
-    this.carteras = db.list(uid + '/carteras').valueChanges();
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, db: AngularFireDatabase, public modalCtrl: ModalController, private datePicker: DatePicker, user: UserProvider) {
+    this.editable = navParams.get('flag');
+    let currentuser = user.getUser();
+
+    if(this.editable){
+      this.transaccion = navParams.get('txn');
+    } else{
+      this.transaccion.cantidad = navParams.get('amount');
+    }
+
+    this.itemRef = db.list(currentuser.uid + '/transacciones/');
+    this.carteras = db.list(currentuser.uid + '/carteras').valueChanges();
+  }
+
+  changeAmount(amount: number){
+    this.navCtrl.push('AgregarTransaccionPage', { amount })
   }
 
   selectCategory(){
@@ -78,9 +92,14 @@ export class DetalleTransaccionPage {
   }
 
   done() {
-    console.log(this.transaccion);
-    this.itemRef.push(this.transaccion);
-
-    this.navCtrl.push('DashboardPage');
+    if(!this.editable){
+      this.itemRef.push(this.transaccion);
+      this.navCtrl.push('DashboardPage');
+    }else{
+      let saveKey = this.transaccion.key
+      delete this.transaccion.key;
+      this.itemRef.update(saveKey, this.transaccion);
+      this.navCtrl.push('DashboardPage');
+    }
   }
 }

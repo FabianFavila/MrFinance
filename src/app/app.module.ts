@@ -10,6 +10,8 @@ import firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 
+import { UserProvider } from '../providers/user/user';
+
 import { MyApp } from './app.component';
 
 export const firebaseConfig = {
@@ -41,7 +43,8 @@ export const firebaseConfig = {
     SplashScreen,
     DatePicker,
     AngularFireDatabase,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserProvider
   ]
 })
 export class AppModule {}

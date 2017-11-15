@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { AngularFireDatabase  } from 'angularfire2/database';
 
 import { Cartera } from '../../models/cartera';
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -19,8 +20,8 @@ export class AgregarCarteraPage {
     balance: 0
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase, public alertCtrl: AlertController) {
-    this.uid = this.navParams.get('uid');
+  constructor(public navCtrl: NavController, public user: UserProvider, public db: AngularFireDatabase, public alertCtrl: AlertController) {
+    this.uid = user.getUser().uid;
   }
   
   saveWallet(){

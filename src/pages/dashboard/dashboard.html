@@ -20,7 +20,7 @@
   <div class="carteras" padding>
     <h5>Carteras</h5>
     <ion-slides spaceBetween="20px">
-      <ion-slide [style.background-color]="cartera.color" *ngFor="let cartera of carteras | async">
+      <ion-slide (click)="viewWallet(cartera)" [style.background-color]="cartera.color" *ngFor="let cartera of carteras | async">
         <p text-left padding-left text-capitalize>{{cartera.nombre}}</p>
         <h2>{{cartera.balance | currency:user.moneda:true}}</h2>
       </ion-slide>

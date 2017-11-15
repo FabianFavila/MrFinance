@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the AgregarTransaccionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,8 +10,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class AgregarTransaccionPage {
   amount: number = 0;
   decimal: boolean = false;
+  currency: string = 'MXN';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    if(this.navParams.get('amount')){
+      this.amount = this.navParams.get('amount');
+    }
+
+    this.currency = this.navParams.get('curr');
   }
 
   addNumber(num: number){
@@ -34,8 +34,7 @@ export class AgregarTransaccionPage {
 
   confirm(){
     this.navCtrl.push('DetalleTransaccionPage', {
-      amount: this.amount,
-      uid: this.navParams.get('uid')
+      amount: this.amount
     })
   }
 

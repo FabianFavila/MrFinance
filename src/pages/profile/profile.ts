@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Usuario } from '../../models/usuario';
 
 @IonicPage()
 @Component({
@@ -14,12 +11,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  itemRef: AngularFireObject<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user = new Usuario("", "", "", "", "mxn");
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, db: AngularFireDatabase) {
+
+    this.storage.get('currentuser').then((val) => {
+
+      this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda, val.balance);
+
+      this.itemRef = db.object('/' + val.uid + '/preferencias');
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+  setAvatar(avatar:string){
+    this.user.avatar = "assets/imgs/avatars/" + avatar + ".png";
   }
 
+  done(){
+    this.storage.set('currentuser', this.user);
+
+    this.itemRef.update({
+      nombre: this.user.nombre,
+      avatar: this.user.avatar,
+      email: this.user.email,
+      moneda: this.user.moneda
+    });
+    
+    this.navCtrl.push('DashboardPage');
+  }
 }

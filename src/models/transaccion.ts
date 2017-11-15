@@ -7,4 +7,5 @@ export interface Transaccion {
     categoria: string;
     fecha: string;
     cartera: string;
+    key?: string;
 }

@@ -4,6 +4,7 @@ import { AngularFireDatabase  } from 'angularfire2/database';
 
 import { Cartera } from '../../models/cartera';
 import { Transaccion } from '../../models/transaccion';
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -11,19 +12,14 @@ import { Transaccion } from '../../models/transaccion';
   templateUrl: 'carteras.html',
 })
 export class CarterasPage {
-  transaccion : Transaccion = {
-    cantidad: 0,
-    titulo: '',
-    descripcion: '',
-    tipo: false,
-    icono: '',
-    categoria: '',
-    fecha: '',
-    cartera: '' 
-  };
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
-    
+  cartera: Cartera;
+  moneda: string = 'MXN';
+  uid: string;
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase, user: UserProvider) {
+    this.cartera = this.navParams.get('cartera');
+    this.uid = user.getUser().uid;
+    this.moneda = user.getUser().moneda;
   }
 
   viewTransaction(txn: any){

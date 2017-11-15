@@ -1,18 +1,64 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Profile</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Editar perfil</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <form (ngSubmit)="done()">
+    <ion-item margin-top>
+      <ion-label stacked>Nombre</ion-label>
+      <ion-input [(ngModel)]="user.nombre" name="nombre" type="text"></ion-input>
+    </ion-item>
 
-<ion-content padding>
+    <ion-item margin-top>
+      <ion-label stacked>Moneda</ion-label>
+      <ion-select [(ngModel)]="user.moneda" name="moneda" interface="popover">
+        <ion-option value="MXN">MXN (Peso mexicano)</ion-option>
+        <ion-option value="USD">USD (US Dolar)</ion-option>
+        <ion-option value="EUR">EUR (Euro)</ion-option>
+      </ion-select>
+    </ion-item>
 
+    <div padding>
+      <ion-label stacked>Tu avatar</ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-avatar (click)="setAvatar('boy1')">
+              <img src="assets/imgs/avatars/boy1.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar (click)="setAvatar('boy2')">
+              <img src="assets/imgs/avatars/boy2.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar (click)="setAvatar('boy3')">
+              <img src="assets/imgs/avatars/boy3.png">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-avatar (click)="setAvatar('boy4')">
+              <img src="assets/imgs/avatars/boy4.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar (click)="setAvatar('miss1')">
+              <img src="assets/imgs/avatars/miss1.png">
+            </ion-avatar>
+          </ion-col>
+          <ion-col>
+            <ion-avatar (click)="setAvatar('miss2')">
+              <img src="assets/imgs/avatars/miss2.png">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <button margin-top ion-button color="secondary" block large type="submit">GUARDAR</button>
+    </div>
+  </form>
 </ion-content>

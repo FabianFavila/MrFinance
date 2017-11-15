@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { Usuario } from '../models/usuario';
+import { UserProvider } from '../providers/user/user';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,13 +23,13 @@ export class MyApp {
     { title: 'Prestamos', component: 'PrestamosPage', icon: 'ios-people' }
   ]
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config, private storage: Storage, public menuCtrl: MenuController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config, private storage: Storage, public menuCtrl: MenuController, userProvider: UserProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
+      
       this.storage.get('currentuser').then((val) => {
         if(val){
           //User exist
@@ -39,8 +40,18 @@ export class MyApp {
           this.rootPage = 'WelcomePage';
         }
       });
+      
+      userProvider.init();
     });
   }
+
+  /* ionViewWillEnter(){
+    this.storage.get('currentuser').then((val) => {
+      if(val){
+        this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda, val.balance);
+      }
+    });
+  } */
 
   openPage(page) {
     // Reset the content nav to have just this page
@@ -49,6 +60,7 @@ export class MyApp {
   }
 
   changeProfile(){
+    this.menuCtrl.close();
     this.nav.push('ProfilePage');
   }
 
