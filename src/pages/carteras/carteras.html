@@ -1,20 +1,20 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar [color]="searchColor(cartera?.color)">
     <ion-title>{{cartera?.nombre}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div class="balance">
+    <h2>Tu balance general es:</h2>
     <h1>{{cartera?.balance | currency:moneda:true}}</h1>
   </div>
   <div class="transacciones">
-    <h5 padding-left>Ultimos registros</h5>
     <ion-card class="transaccion" (click)="viewTransaction(transaccion)">
       <ion-grid>
         <ion-row align-items-center>
           <ion-col col-3>
-            <img [src]="transaccion?.icono" alt="Category" class="category">
+            <img [src]="transaccion?.icono" alt="Categoria" class="category">
           </ion-col>
           <ion-col col-9>
             <h1 class="amount">{{transaccion?.cantidad | currency:moneda:true}}</h1>
