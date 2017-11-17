@@ -4,13 +4,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="balance">
+<ion-content>
+  <div class="balance" padding>
     <h2>Tu balance general es:</h2>
     <h1>{{cartera?.balance | currency:moneda:true}}</h1>
   </div>
   <div class="transacciones">
-    <ion-card class="transaccion" (click)="viewTransaction(transaccion)">
+    <ion-card class="transaccion" *ngFor="let transaccion of transacciones | async" (click)="viewTransaction(transaccion)">
       <ion-grid>
         <ion-row align-items-center>
           <ion-col col-3>
@@ -21,27 +21,27 @@
           </ion-col>
         </ion-row>
         <ion-row justify-content-around>
-          <ion-col col-6>
-            {{transaccion?.cartera}}
-          </ion-col>
-          <ion-col col-3>
-            {{transaccion?.fecha}}
-          </ion-col>
-          <ion-col col-3 *ngIf="transaccion?.tipo; else elseBlock">
-            + Ingreso
-          </ion-col>
-          <ng-template #elseBlock>
-            <ion-col col-3>
-              - Gasto
+            <ion-col col-6>
+                <h2>{{transaccion?.cartera}}</h2>
             </ion-col>
-          </ng-template>
-        </ion-row>
+            <ion-col col-3>
+                <h2>{{transaccion?.fecha}}</h2>
+            </ion-col>
+            <ion-col [style.color]="'green'" col-3 *ngIf="transaccion?.tipo; else elseBlock">
+              <h2>+ Ingreso</h2>
+            </ion-col>
+            <ng-template #elseBlock>
+                <ion-col [style.color]="'red'" col-3>
+                  <h2>- Gasto</h2>
+                </ion-col>
+            </ng-template>
+          </ion-row>
       </ion-grid>
     </ion-card>
   </div>
 
   <ion-fab right bottom>
-    <button ion-fab color="gray">
+    <button ion-fab color="gray" (click)="editWallet()">
       <ion-icon name="md-create"></ion-icon>
     </button>
   </ion-fab>

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase  } from 'angularfire2/database';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 
 import { Cartera } from '../../models/cartera';
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -10,26 +11,44 @@ import { Cartera } from '../../models/cartera';
   templateUrl: 'detalle-cartera.html',
 })
 export class DetalleCarteraPage {
-  itemRef: any;
-  
-  cartera: Cartera = {
-    nombre: "",
-    color: "",
-    balance: 0
-  };
+  carteraRef: AngularFireObject<any>;;
+  cartera: Cartera;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, db: AngularFireDatabase) {
-    this.itemRef = db.list('test/carteras/');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, db: AngularFireDatabase, user: UserProvider) {
+    let currentuser = user.getUser();
+    this.cartera = this.navParams.get('cartera');
+
+    this.carteraRef = db.object(currentuser.uid + '/carteras/' + this.cartera.key);
   }
 
-  saveWallet(){
-    this.itemRef.push({ 
+  updateWallet(){
+    this.carteraRef.update({ 
       nombre: this.cartera.nombre,
       color: this.cartera.color,
       balance: this.cartera.balance 
     });
 
-    this.navCtrl.push('DashboardPage');
+    this.navCtrl.popToRoot();
+  }
+
+  deleteWallet(){
+    let confirm = this.alertCtrl.create({
+      title: '¿Estas seguro de eliminar esta cartera?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.carteraRef.remove().then(()=>{ this.navCtrl.popToRoot() });
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   setColor(event: Event, col:string){

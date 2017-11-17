@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList  } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 import { Cartera } from '../../models/cartera';
 import { Transaccion } from '../../models/transaccion';
@@ -12,6 +14,9 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'carteras.html',
 })
 export class CarterasPage {
+  transaccionesRef: AngularFireList<any>;
+  transacciones: Observable<any[]>;
+
   cartera: Cartera;
   moneda: string = 'MXN';
   uid: string;
@@ -20,6 +25,11 @@ export class CarterasPage {
     this.cartera = this.navParams.get('cartera');
     this.uid = user.getUser().uid;
     this.moneda = user.getUser().moneda;
+
+    this.transaccionesRef = db.list('/' + this.uid + '/transacciones', ref => ref.orderByChild('cartera').equalTo(this.cartera.nombre));
+    this.transacciones = this.transaccionesRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   viewTransaction(txn: any) {
@@ -38,5 +48,9 @@ export class CarterasPage {
       case "#00D1C3": { return "color8"; }
       default: { return "primary"; }
     }
+  }
+
+  editWallet(){
+    this.navCtrl.push('DetalleCarteraPage', { cartera: this.cartera })
   }
 }

@@ -44,7 +44,7 @@ export class DashboardPage {
         return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
       });
 
-      this.transacciones = afDB.list('/' + val.uid + '/transacciones').snapshotChanges().map(changes => {
+      this.transacciones = afDB.list('/' + val.uid + '/transacciones', ref => ref.limitToFirst(15)).snapshotChanges().map(changes => {
         return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
       });
 
