@@ -1,21 +1,28 @@
 page-agregar-transaccion {
     .amount{
-        height: 25%;
+        height: 35%;
         vertical-align: middle;
+        background: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255), color($colors, gray)); 
 
         h1{
             font-size: 50px;
             text-align: center;
-            margin-top: 60px;
+            margin: 0;
+            position: relative;
+            top: 35%; 
         }
     }
 
     .numbers{
         height: 65%;
-        border: 5px solid black;
+        border: 12px solid color($colors, gray);
 
         h1{
             font-size: 40px;
         }
+    }
+
+    ion-row{
+        margin-top: 10px;
     }
 }

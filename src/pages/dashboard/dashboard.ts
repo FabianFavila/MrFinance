@@ -84,7 +84,7 @@ export class DashboardPage {
     }
   }
 
-  // Menu
+  //region Menu
   openMenu() {
     this.menuCtrl.toggle();
   }
@@ -92,11 +92,11 @@ export class DashboardPage {
   openProfile() {
     this.menuCtrl.toggle('right');
   }
-  //////////////
+  //endregion
 
-  // Navegation
+  //region Navegation
   newTransaction() {
-    this.navCtrl.push('AgregarTransaccionPage', { curr: this.user.moneda });
+    this.navCtrl.push('AgregarTransaccionPage', { currency: this.user.moneda });
   }
 
   newWallet() {
@@ -114,6 +114,5 @@ export class DashboardPage {
   voiceTransactions() {
     this.navCtrl.push('AgregarPorVozPage');
   }
-  //////////////
-
+  //endregion
 }

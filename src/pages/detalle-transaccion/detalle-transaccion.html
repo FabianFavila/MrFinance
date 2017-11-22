@@ -7,7 +7,8 @@
 <ion-content>
   <form (ngSubmit)="done()">
     <div class="amount" padding (click)="changeAmount(transaccion.cantidad)">
-      <h1>{{transaccion.cantidad | currency:'MXN':true}}</h1>
+      <p>Toca aquí para cambiar de la cantidad</p>
+      <h1>{{transaccion.cantidad | currency:moneda:true}}</h1>
     </div>
     <ion-grid>
       <ion-row align-items-center justify-content-center>

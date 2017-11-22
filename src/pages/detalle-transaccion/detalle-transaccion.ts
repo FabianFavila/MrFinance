@@ -20,6 +20,7 @@ export class DetalleTransaccionPage {
   itemRef: AngularFireList<any>;
   carteras: Observable<any[]>;
   editable: boolean;
+  moneda: string = 'MXN';
 
   transaccion : Transaccion = {
     cantidad: 0,
@@ -36,6 +37,8 @@ export class DetalleTransaccionPage {
     this.editable = navParams.get('flag');
     let currentuser = user.getUser();
 
+    this.moneda = currentuser.moneda;
+
     if(this.editable){
       this.transaccion = navParams.get('txn');
     } else{
@@ -47,7 +50,13 @@ export class DetalleTransaccionPage {
   }
 
   changeAmount(amount: number){
-    this.navCtrl.push('AgregarTransaccionPage', { amount })
+    let amountModal = this.modalCtrl.create('AgregarTransaccionPage', { amount, currency: this.moneda, modal: true });
+    amountModal.onDidDismiss(amount => {
+      if (amount) {
+        this.transaccion.cantidad = amount;
+      }
+    });
+    amountModal.present();
   }
 
   selectCategory(){

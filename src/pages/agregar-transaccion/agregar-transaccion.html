@@ -1,14 +1,12 @@
 <ion-header>
-
   <ion-navbar color="primary">
-    <ion-title>Agregar transacción</ion-title>
+    <ion-title>{{modalFlag? 'Editar cantidad' : 'Agregar transacción'}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="confirm()">
         <ion-icon name="checkmark-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
@@ -19,38 +17,38 @@
     <ion-grid>
       <ion-row align-items-center justify-content-around>
         <ion-col col-3> 
-          <button (click)="addNumber(1)" ion-button clear round large color="dark"><h1>1</h1></button>
+          <button (click)="addNumber(1)" ion-button clear round large color="dark"><h1>{{decimal? 10 : 1}}</h1></button>
         </ion-col>
         <ion-col col-3>
-          <button (click)="addNumber(2)" ion-button clear round large color="dark"><h1>2</h1></button>
+          <button (click)="addNumber(2)" ion-button clear round large color="dark"><h1>{{decimal? 20 : 2}}</h1></button>
         </ion-col>
         <ion-col col-3>
-          <button (click)="addNumber(3)" ion-button clear round large color="dark"><h1>3</h1></button>
+          <button (click)="addNumber(3)" ion-button clear round large color="dark"><h1>{{decimal? 30 : 3}}</h1></button>
         </ion-col>
       </ion-row>
-      <ion-row align-items-center  justify-content-around>
+      <ion-row align-items-center justify-content-around>
         <ion-col col-3>
-          <button (click)="addNumber(4)" ion-button clear round large color="dark"><h1>4</h1></button>
+          <button (click)="addNumber(4)" ion-button clear round large color="dark"><h1>{{decimal? 40 : 4}}</h1></button>
         </ion-col>
         <ion-col col-3>
-          <button (click)="addNumber(5)" ion-button clear round large color="dark"><h1>5</h1></button>
+          <button (click)="addNumber(5)" ion-button clear round large color="dark"><h1>{{decimal? 50 : 5}}</h1></button>
         </ion-col>
         <ion-col col-3>
-          <button (click)="addNumber(6)" ion-button clear round large color="dark"><h1>6</h1></button>
-        </ion-col>
-      </ion-row>
-      <ion-row align-items-center  justify-content-around>
-        <ion-col col-3>
-          <button (click)="addNumber(7)" ion-button clear round large color="dark"><h1>7</h1></button>
-        </ion-col>
-        <ion-col col-3>
-          <button (click)="addNumber(8)" ion-button clear round large color="dark"><h1>8</h1></button>
-        </ion-col>
-        <ion-col col-3>
-          <button (click)="addNumber(9)" ion-button clear round large color="dark"><h1>9</h1></button>
+          <button (click)="addNumber(6)" ion-button clear round large color="dark"><h1>{{decimal? 60 : 6}}</h1></button>
         </ion-col>
       </ion-row>
-      <ion-row align-items-center  justify-content-around>
+      <ion-row align-items-center justify-content-around>
+        <ion-col col-3>
+          <button (click)="addNumber(7)" ion-button clear round large color="dark"><h1>{{decimal? 70 : 7}}</h1></button>
+        </ion-col>
+        <ion-col col-3>
+          <button (click)="addNumber(8)" ion-button clear round large color="dark"><h1>{{decimal? 80 : 8}}</h1></button>
+        </ion-col>
+        <ion-col col-3>
+          <button (click)="addNumber(9)" ion-button clear round large color="dark"><h1>{{decimal? 90 : 9}}</h1></button>
+        </ion-col>
+      </ion-row>
+      <ion-row align-items-center justify-content-around>
         <ion-col col-3>
           <button (click)="toggle()" ion-button [clear]="!decimal" round large color="dark"><h1>.</h1></button>
         </ion-col>
