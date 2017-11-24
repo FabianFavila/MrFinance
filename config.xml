@@ -92,11 +92,11 @@
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <engine name="android" spec="~6.3.0" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="phonegap-plugin-push" spec="^2.1.0">
         <variable name="SENDER_ID" value="923702613206" />
         <variable name="FCM_VERSION" value="11.0.1" />
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <engine name="android" spec="~6.3.0" />
 </widget>

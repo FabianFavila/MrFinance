@@ -44,7 +44,8 @@
             </ng-template>
           </ion-col>
           <ion-col col-9 text-center (click)="selectCategory()">
-            <h6 *ngIf="transaccion.categoria == ''; else elseBlock2">HAZ CLIC PARA <br> SELECCIONAR LA CATEGORIA</h6>
+            <h6 *ngIf="transaccion.categoria == ''; else elseBlock2">HAZ CLIC PARA
+              <br> SELECCIONAR LA CATEGORIA</h6>
             <ng-template #elseBlock2>
               <h6>{{transaccion.categoria}}</h6>
             </ng-template>
@@ -60,7 +61,8 @@
             </button>
           </ion-col>
           <ion-col col-9 text-center (click)="selectDate()">
-            <h6 *ngIf="transaccion.fecha == ''; else elseBlock3">HAZ CLIC PARA <br> SELECCIONAR LA FECHA</h6>
+            <h6 *ngIf="transaccion.fecha == ''; else elseBlock3">HAZ CLIC PARA
+              <br> SELECCIONAR LA FECHA</h6>
             <ng-template #elseBlock3>
               <h6>{{transaccion.fecha}}</h6>
             </ng-template>
@@ -69,15 +71,15 @@
       </ion-grid>
 
       <ion-item margin-top>
-          <ion-label>Cartera</ion-label>
-          <ion-select [(ngModel)]="transaccion.cartera" name="cartera" interface="popover">
-            <ion-option [value]="cartera.nombre" *ngFor="let cartera of carteras | async">{{cartera.nombre}}</ion-option>
-          </ion-select>
-        </ion-item>
+        <ion-label>Cartera</ion-label>
+        <ion-select [(ngModel)]="carteraTemp" name="cartera" interface="popover">
+          <ion-option [value]="cartera" *ngFor="let cartera of carteras | async">{{cartera.nombre}}</ion-option>
+        </ion-select>
+      </ion-item>
     </ion-list>
-    
+
     <div margin-top padding>
       <button ion-button color="secondary" large block type="submit">GUARDAR</button>
     </div>
-  </form>  
+  </form>
 </ion-content>

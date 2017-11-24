@@ -10,8 +10,6 @@ import { Usuario } from '../../models/usuario';
 import { Transaccion } from '../../models/transaccion';
 import { Cartera } from './../../models/cartera';
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-dashboard',
@@ -22,7 +20,7 @@ export class DashboardPage {
   transacciones: Observable<any[]>;
   carteras: Observable<any[]>;
 
-  user = new Usuario("", "", "", "", "mxn");
+  user = new Usuario("", "", "", "", "MXN");
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController, private storage: Storage, afDB: AngularFireDatabase, public loadingCtrl: LoadingController) {
     let loading = this.loadingCtrl.create({
