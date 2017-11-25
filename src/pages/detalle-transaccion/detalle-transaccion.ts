@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { DatePicker } from '@ionic-native/date-picker';
@@ -39,7 +39,7 @@ export class DetalleTransaccionPage {
     cartera: ''
   };
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public db: AngularFireDatabase, public modalCtrl: ModalController, private datePicker: DatePicker, user: UserProvider) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public db: AngularFireDatabase, public modalCtrl: ModalController, private datePicker: DatePicker, user: UserProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     this.editable = navParams.get('flag');
     this.currentuser = user.getUser();
 
@@ -51,8 +51,8 @@ export class DetalleTransaccionPage {
       this.transaccion.cantidad = navParams.get('amount');
     }
 
-    this.balanceRef = db.object('/' + this.currentuser.uid + '/balance');
     this.userRef = db.object('/' + this.currentuser.uid);
+    this.balanceRef = db.object('/' + this.currentuser.uid + '/balance');
     this.balanceRef.snapshotChanges().subscribe(data => { this.balance = data.payload.val() });
 
     this.transaccionesRef = db.list(this.currentuser.uid + '/transacciones/');
@@ -72,7 +72,10 @@ export class DetalleTransaccionPage {
   }
 
   selectCategory() {
-    let categoriesModal = this.modalCtrl.create('CategoriasPage');
+    let categoriesModal = this.modalCtrl.create(
+      'CategoriasPage', 
+      { ingreso: this.transaccion.tipo }
+    );
     categoriesModal.onDidDismiss((category, avatar) => {
       if (category) {
         this.transaccion.categoria = category;
@@ -113,27 +116,36 @@ export class DetalleTransaccionPage {
   }
 
   done() {
-    this.transaccion.cartera = this.carteraTemp.nombre;
+    if (this.carteraTemp != null) {
+      this.transaccion.cartera = this.carteraTemp.nombre;
+      this.transaccion.tipo ? this.balance += this.transaccion.cantidad : this.balance -= this.transaccion.cantidad;
 
-    this.db.object('/' + this.currentuser.uid + '/carteras/' + this.carteraTemp.key + '/balance').snapshotChanges().subscribe(data => {
-      this.balanceCartera = data.payload.val();
-    }).unsubscribe();
-
-    this.transaccion.tipo ? this.balance += this.transaccion.cantidad : this.balance -= this.transaccion.cantidad;
-    this.transaccion.tipo ? this.balanceCartera += this.transaccion.cantidad : this.balanceCartera -= this.transaccion.cantidad;
-    
-    if (!this.editable) {
-      this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
-      this.userRef.update({ balance: this.balance });
-      this.transaccionesRef.push(this.transaccion);
-      this.navCtrl.push('DashboardPage');
+      let subs = this.db.object('/' + this.currentuser.uid + '/carteras/' + this.carteraTemp.key + '/balance').snapshotChanges()
+      .subscribe(data => {
+        this.balanceCartera = data.payload.val();
+        subs.unsubscribe();
+        this.transaccion.tipo ? this.balanceCartera += this.transaccion.cantidad : this.balanceCartera -= this.transaccion.cantidad;
+        this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
+      });
+      
+      if (!this.editable) {
+        this.userRef.update({ balance: this.balance });
+        this.transaccionesRef.push(this.transaccion);
+        this.navCtrl.push('DashboardPage');
+      } else {
+        this.userRef.update({ balance: this.balance });
+        let saveKey = this.transaccion.key;
+        delete this.transaccion.key;
+        this.transaccionesRef.update(saveKey, this.transaccion);
+        this.navCtrl.push('DashboardPage');
+      }
     } else {
-      this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
-      this.userRef.update({ balance: this.balance });
-      let saveKey = this.transaccion.key;
-      delete this.transaccion.key;
-      this.transaccionesRef.update(saveKey, this.transaccion);
-      this.navCtrl.push('DashboardPage');
+      let alert = this.alertCtrl.create({
+        title: 'Agrega una cartera',
+        subTitle: 'Selecciona una cartera para poder continuar con la transacción.',
+        buttons: ['Volver']
+      });
+      alert.present();
     }
   }
 }

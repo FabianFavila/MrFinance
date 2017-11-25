@@ -5,81 +5,25 @@
       <button ion-button (click)="cancel()" color="primary">Cancelar</button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar no-border-top color="primary">
+    <ion-segment [(ngModel)]="ingreso" color="secondary">
+      <ion-segment-button value="false">
+        Egreso
+      </ion-segment-button>
+      <ion-segment-button value="true">
+        Ingreso
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item (click)="done('Ropa', 'ropa')">
+    <ion-item *ngFor="let category of getCategories()" (click)="done(category.nombre, category.nombre.toLowerCase().trim())">
       <ion-avatar item-start>
-        <img src="assets/imgs/categories/ropa.png">
+        <img [src]="category.img">
       </ion-avatar>
-      <h2>Ropa</h2>
-    </ion-item>
-    <ion-item (click)="done('Educacion', 'books')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/books.png">
-      </ion-avatar>
-      <h2>Educacion</h2>
-    </ion-item>
-    <ion-item (click)="done('Comida y bebida', 'comidaybebida')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/comidaybebida.png">
-      </ion-avatar>
-      <h2>Comida y bebida</h2>
-    </ion-item>
-    <ion-item (click)="done('Salud y cuidado personal', 'saludycuidadopersonal')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/saludycuidadopersonal.png">
-      </ion-avatar>
-      <h2>Salud y cuidado personal</h2>
-    </ion-item>
-    <ion-item (click)="done('Casa', 'casa')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/casa.png">
-      </ion-avatar>
-      <h2>Casa</h2>
-    </ion-item>
-    <ion-item (click)="done('Renta', 'casa')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/casa.png">
-      </ion-avatar>
-      <h2>Renta</h2>
-    </ion-item>
-    <ion-item (click)="done('Compras', 'compras')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/compras.png">
-      </ion-avatar>
-      <h2>Compras</h2>
-    </ion-item>
-    <ion-item (click)="done('Transporte', 'transporte')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/transporte.png">
-      </ion-avatar>
-      <h2>Transporte</h2>
-    </ion-item>
-    <ion-item (click)="done('Vehiculos', 'vehiculos')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/vehiculos.png">
-      </ion-avatar>
-      <h2>Vehiculos</h2>
-    </ion-item>
-    <ion-item (click)="done('Vida y entretenimiento', 'vidayentretenimiento')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/vidayentretenimiento.png">
-      </ion-avatar>
-      <h2>Vida y entretenimiento</h2>
-    </ion-item>
-    <ion-item (click)="done('Servicios', 'servicios')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/servicios.png">
-      </ion-avatar>
-      <h2>Servicios</h2>
-    </ion-item>
-    <ion-item (click)="done('Otros', 'otros')">
-      <ion-avatar item-start>
-        <img src="assets/imgs/categories/otros.png">
-      </ion-avatar>
-      <h2>Otros</h2>
+      <h2>{{category.nombre}}</h2>
     </ion-item>
   </ion-list>
 </ion-content>
