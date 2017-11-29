@@ -23,7 +23,7 @@ export class MyApp {
     { title: 'Prestamos', component: 'PrestamosPage', icon: 'ios-people' }
   ]
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private config: Config, private storage: Storage, public menuCtrl: MenuController, userProvider: UserProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage, public menuCtrl: MenuController, userProvider: UserProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -44,14 +44,6 @@ export class MyApp {
       userProvider.init();
     });
   }
-
-  /* ionViewWillEnter(){
-    this.storage.get('currentuser').then((val) => {
-      if(val){
-        this.user = new Usuario(val.nombre, val.avatar, val.email, val.uid, val.moneda, val.balance);
-      }
-    });
-  } */
 
   openPage(page) {
     // Reset the content nav to have just this page

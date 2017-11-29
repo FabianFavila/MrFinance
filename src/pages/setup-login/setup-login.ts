@@ -5,12 +5,6 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 
 import { Usuario } from '../../models/usuario';
 
-/**
- * Generated class for the SetupLoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

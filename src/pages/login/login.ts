@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
-import firebase  from 'firebase';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Storage } from '@ionic/storage';
 
 import { Usuario } from '../../models/usuario';
@@ -15,27 +17,31 @@ export class LoginPage {
   isNew: boolean;
   user: Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private storage: Storage, private fb: Facebook, private afAuth: AngularFireAuth) {
     this.isNew = navParams.get('newPerson');
 
     //This is only for debugging purposes
-    this.user = new Usuario("Fabian Solano", "assets/imgs/avatars/boy4.png", "test@gmail.com", "uiddeprueba123", "MXN", 0); 
+    this.user = new Usuario("Fabian Solano", "assets/imgs/avatars/boy4.png", "test@gmail.com", "uiddeprueba123", "MXN", 0);
   }
 
-  loginFacebook(){
-    let provider = new firebase.auth.FacebookAuthProvider();
-
-    firebase.auth().signInWithRedirect(provider).then(() =>{
-      firebase.auth().getRedirectResult().then((result) =>{
-        this.user.nombre = result.user.displayName;
-        this.user.email = result.user.email;
-        this.user.uid = result.user.uid;
+  loginFacebook() {
+    this.fb.login(['public_profile', 'email'])
+      .then((res: FacebookLoginResponse) => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+        firebase.auth().signInWithCredential(facebookCredential);
+        this.afAuth.authState.subscribe((user: firebase.User) => {
+          this.user.nombre = user.displayName;
+          this.user.email = user.email;
+          this.user.uid = user.uid;
+          return;
+        });
         this.navCtrl.push('SetupLoginPage', { 'user': this.user });
-      }).catch(function(error){
+      })
+      .catch(e => {
         const alert = this.alertCtrl.create({
-          title: 'Error: ' + error.code,
+          title: 'Error: ' + JSON.stringify(e),
           buttons: [{
-            text: 'Volver al inicio',
+            text: 'Error al tratar de validar tu informacion con Facebook, por favor intenta de nuevo',
             handler: () => {
               this.navCtrl.push('WelcomePage');
             }
@@ -43,17 +49,16 @@ export class LoginPage {
         });
         alert.present();
       });
-    });
   }
 
-  loginTwitter(){
+  loginTwitter() {
     let provider = new firebase.auth.TwitterAuthProvider();
-    
-    firebase.auth().signInWithRedirect(provider).then(() =>{
-      firebase.auth().getRedirectResult().then((result) =>{
+
+    firebase.auth().signInWithRedirect(provider).then(() => {
+      firebase.auth().getRedirectResult().then((result) => {
         alert(JSON.stringify(result));
-        this.navCtrl.push('SetupLoginPage', { 'user':this.user });
-      }).catch(function(error){
+        this.navCtrl.push('SetupLoginPage', { 'user': this.user });
+      }).catch(function (error) {
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
           buttons: [{
@@ -69,14 +74,14 @@ export class LoginPage {
 
   }
 
-  loginGoogle(){
+  loginGoogle() {
     let provider = new firebase.auth.GoogleAuthProvider();
-    
-    firebase.auth().signInWithRedirect(provider).then(() =>{
-      firebase.auth().getRedirectResult().then((result) =>{
+
+    firebase.auth().signInWithRedirect(provider).then(() => {
+      firebase.auth().getRedirectResult().then((result) => {
         alert(JSON.stringify(result));
-        this.navCtrl.push('SetupLoginPage', { 'user':this.user });
-      }).catch(function(error){
+        this.navCtrl.push('SetupLoginPage', { 'user': this.user });
+      }).catch(function (error) {
         const alert = this.alertCtrl.create({
           title: 'Error: ' + error.code,
           buttons: [{
@@ -91,12 +96,12 @@ export class LoginPage {
     });
   }
 
-  loginInvited(){
+  loginInvited() {
     this.storage.set('currentuser', this.user);
-    this.navCtrl.push('SetupLoginPage', { 'user':this.user });
+    this.navCtrl.push('SetupLoginPage', { 'user': this.user });
   }
 
-  toggle(){
+  toggle() {
     this.isNew = this.isNew ? false : true;
   }
 }

@@ -99,4 +99,8 @@
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="757209611133913" />
+        <variable name="APP_NAME" value="MrFinance" />
+    </plugin>
 </widget>
