@@ -23,9 +23,11 @@
     "@ionic-native/core": "4.3.0",
     "@ionic-native/date-picker": "^4.3.3",
     "@ionic-native/facebook": "^4.4.2",
+    "@ionic-native/google-plus": "^4.4.2",
     "@ionic-native/push": "^4.3.2",
     "@ionic-native/splash-screen": "4.3.0",
     "@ionic-native/status-bar": "4.3.0",
+    "@ionic-native/twitter-connect": "^4.4.2",
     "@ionic/storage": "^2.0.1",
     "angularfire2": "^5.0.0-rc.3",
     "cordova-android": "~6.3.0",
@@ -35,6 +37,7 @@
     "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-facebook4": "^1.9.1",
+    "cordova-plugin-googleplus": "^5.1.1",
     "cordova-plugin-inappbrowser": "^1.7.2",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^4.1.0",
@@ -45,10 +48,10 @@
     "ionic-angular": "3.7.1",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
-    "phonegap-plugin-push": "^2.1.0",
     "promise-polyfill": "^6.0.2",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
+    "twitter-connect-plugin": "git+https://github.com/chroa/twitter-connect-plugin.git",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
@@ -68,15 +71,17 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-sqlite-storage": {},
-      "phonegap-plugin-push": {
-        "SENDER_ID": "923702613206",
-        "FCM_VERSION": "11.0.1"
-      },
       "cordova-plugin-datepicker": {},
       "cordova-plugin-facebook4": {
         "APP_ID": "757209611133913",
         "APP_NAME": "MrFinance"
-      }
+      },
+      "twitter-connect-plugin": {
+        "FABRIC_KEY": "f2eeeac8a0aa8589738dcb8e28369a77cceed471",
+        "TWITTER_KEY": "4Tqz8gR25t1pcp10d889QKPGq",
+        "TWITTER_SECRET": "9rMvIZee674fgthZj99KfLv50RPOT1k7y07are6Ifp0p2brhnw"
+      },
+      "cordova-plugin-googleplus": {}
     },
     "platforms": [
       "android"

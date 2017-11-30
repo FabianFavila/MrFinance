@@ -93,14 +93,16 @@
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
-    <plugin name="phonegap-plugin-push" spec="^2.1.0">
-        <variable name="SENDER_ID" value="923702613206" />
-        <variable name="FCM_VERSION" value="11.0.1" />
-    </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <engine name="android" spec="~6.3.0" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="757209611133913" />
         <variable name="APP_NAME" value="MrFinance" />
     </plugin>
+    <plugin name="twitter-connect-plugin" spec="https://github.com/chroa/twitter-connect-plugin">
+        <variable name="FABRIC_KEY" value="f2eeeac8a0aa8589738dcb8e28369a77cceed471" />
+        <variable name="TWITTER_KEY" value="4Tqz8gR25t1pcp10d889QKPGq" />
+        <variable name="TWITTER_SECRET" value="9rMvIZee674fgthZj99KfLv50RPOT1k7y07are6Ifp0p2brhnw" />
+    </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1" />
 </widget>

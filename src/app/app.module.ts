@@ -10,6 +10,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
+import { TwitterConnect } from '@ionic-native/twitter-connect';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { UserProvider } from '../providers/user/user';
 
@@ -54,7 +56,9 @@ export const firebaseConfig = {
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    Facebook
+    Facebook,
+    TwitterConnect,
+    GooglePlus
   ]
 })
 export class AppModule {}

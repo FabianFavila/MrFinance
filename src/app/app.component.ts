@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { Usuario } from '../models/usuario';
 import { UserProvider } from '../providers/user/user';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,12 +24,11 @@ export class MyApp {
     { title: 'Prestamos', component: 'PrestamosPage', icon: 'ios-people' }
   ]
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage, public menuCtrl: MenuController, userProvider: UserProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage, public menuCtrl: MenuController, userProvider: UserProvider, private afAuth: AngularFireAuth) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
       
       this.storage.get('currentuser').then((val) => {
         if(val){
@@ -43,6 +43,7 @@ export class MyApp {
       
       userProvider.init();
     });
+    splashScreen.hide();
   }
 
   openPage(page) {
@@ -57,6 +58,7 @@ export class MyApp {
   }
 
   logout(){
+    this.afAuth.auth.signOut();
     this.storage.clear().then(()=>{
       this.menuCtrl.close();
       this.rootPage = 'WelcomePage';
