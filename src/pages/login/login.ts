@@ -34,9 +34,8 @@ export class LoginPage {
           this.user.nombre = user.displayName;
           this.user.email = user.email;
           this.user.uid = user.uid;
-          return;
+          return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
         });
-        this.navCtrl.push('SetupLoginPage', { 'user': this.user });
       })
       .catch(e => {
         const alert = this.alertCtrl.create({
@@ -60,22 +59,21 @@ export class LoginPage {
         this.user.nombre = user.displayName;
         this.user.email = user.email;
         this.user.uid = user.uid;
-        return;
+        return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
       });
-      this.navCtrl.push('SetupLoginPage', { 'user': this.user });
     })
-    .catch(e => {
-      const alert = this.alertCtrl.create({
-        title: 'Error: ' + JSON.stringify(e),
-        buttons: [{
-          text: 'Error al tratar de validar tu informacion con Twitter, por favor intenta de nuevo',
-          handler: () => {
-            this.navCtrl.push('WelcomePage');
-          }
-        }]
+      .catch(e => {
+        const alert = this.alertCtrl.create({
+          title: 'Error: ' + JSON.stringify(e),
+          buttons: [{
+            text: 'Error al tratar de validar tu informacion con Twitter, por favor intenta de nuevo',
+            handler: () => {
+              this.navCtrl.push('WelcomePage');
+            }
+          }]
+        });
+        alert.present();
       });
-      alert.present();
-    });
   }
 
   loginGoogle() {
@@ -89,22 +87,21 @@ export class LoginPage {
         this.user.nombre = user.displayName;
         this.user.email = user.email;
         this.user.uid = user.uid;
-        return;
+        return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
       });
-      this.navCtrl.push('SetupLoginPage', { 'user': this.user });
     })
-    .catch(e => {
-      const alert = this.alertCtrl.create({
-        title: 'Error: ' + JSON.stringify(e),
-        buttons: [{
-          text: 'Error al tratar de validar tu informacion con Twitter, por favor intenta de nuevo',
-          handler: () => {
-            this.navCtrl.push('WelcomePage');
-          }
-        }]
+      .catch(e => {
+        const alert = this.alertCtrl.create({
+          title: 'Error: ' + JSON.stringify(e),
+          buttons: [{
+            text: 'Error al tratar de validar tu informacion con Twitter, por favor intenta de nuevo',
+            handler: () => {
+              this.navCtrl.push('WelcomePage');
+            }
+          }]
+        });
+        alert.present();
       });
-      alert.present();
-    });
   }
 
   toggle() {

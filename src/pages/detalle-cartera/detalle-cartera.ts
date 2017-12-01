@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 
 import { Cartera } from '../../models/cartera';
 import { UserProvider } from '../../providers/user/user';
@@ -11,22 +11,83 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'detalle-cartera.html',
 })
 export class DetalleCarteraPage {
-  carteraRef: AngularFireObject<any>;;
   cartera: Cartera;
+  balanceOriginal: number;
+  remoteBalance: number;
+  userRef: AngularFireObject<any>;
+  carteraRef: AngularFireObject<any>;
+  transaccionesRef: AngularFireList<any>;
+  currentuser: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, db: AngularFireDatabase, user: UserProvider) {
-    let currentuser = user.getUser();
+    this.currentuser = user.getUser();
     this.cartera = this.navParams.get('cartera');
+    this.balanceOriginal = this.cartera.balance;
 
-    this.carteraRef = db.object(currentuser.uid + '/carteras/' + this.cartera.key);
+    this.userRef = db.object('/' + this.currentuser.uid);
+
+    this.carteraRef = db.object(this.currentuser.uid + '/carteras/' + this.cartera.key);
+
+    this.transaccionesRef = db.list(this.currentuser.uid + '/transacciones/');
+
+    db.object('/' + this.currentuser.uid + '/balance').snapshotChanges().subscribe(data => { this.remoteBalance = data.payload.val() });
+  }
+
+  changeDateFormat(date: Date):string {
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1;
+
+    if (dd < 10) {
+      dd = +('0' + dd)
+    }
+
+    if (mm < 10) {
+      mm = +('0' + mm)
+    }
+
+    return dd + ' / ' + mm;
   }
 
   updateWallet(){
-    this.carteraRef.update({ 
-      nombre: this.cartera.nombre,
-      color: this.cartera.color,
-      balance: this.cartera.balance 
-    });
+    if(this.balanceOriginal == this.cartera.balance){
+      //There was no changes in the wallet balance
+      this.carteraRef.update({ 
+        nombre: this.cartera.nombre,
+        color: this.cartera.color,
+        balance: this.cartera.balance 
+      });
+    } else{
+      //The balance was changed
+      let ingreso;
+      if(this.balanceOriginal < this.cartera.balance){
+        // +
+        this.remoteBalance += this.cartera.balance;
+        ingreso = true;
+      } else {
+        // -
+        this.remoteBalance -= this.cartera.balance;
+        ingreso = false;
+      }
+
+      this.transaccionesRef.push({
+        cantidad: this.cartera.balance - this.balanceOriginal,
+        titulo: "Ajuste de balance",
+        descripcion: "Esta transacción representa un ajuste que se hizo al balance de la cartera y afectó al balance global",
+        tipo: ingreso,
+        icono: "assets/imgs/categories/otros.png",
+        categoria: "Otros",
+        fecha: this.changeDateFormat(new Date()),
+        cartera: this.cartera.nombre
+      });
+
+      this.userRef.update({ balance: this.remoteBalance });
+
+      this.carteraRef.update({ 
+        nombre: this.cartera.nombre,
+        color: this.cartera.color,
+        balance: this.cartera.balance 
+      });
+    }
 
     this.navCtrl.popToRoot();
   }

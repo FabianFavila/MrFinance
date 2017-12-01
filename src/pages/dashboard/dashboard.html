@@ -24,8 +24,8 @@
         <p text-left padding-left text-capitalize>{{cartera.nombre}}</p>
         <h2>{{cartera.balance | currency:user.moneda:true}}</h2>
       </ion-slide>
-      <ion-slide style="background-color: white">
-          <button (click)="newWallet()" ion-button icon-only large clear>
+      <ion-slide (click)="newWallet()" style="background-color: white">
+          <button ion-button icon-only large clear>
               <ion-icon name="add-circle"></ion-icon>
           </button>
       </ion-slide>
@@ -50,12 +50,12 @@
               <ion-col col-3>
                   <h2>{{transaccion.fecha}}</h2>
               </ion-col>
-              <ion-col [style.color]="'green'" col-3 *ngIf="transaccion.tipo; else elseBlock">
-                <h2>+ Ingreso</h2>
+              <ion-col col-3 *ngIf="transaccion.tipo; else elseBlock">
+                <h2 [style.color]="'green'">+ Ingreso</h2>
               </ion-col>
               <ng-template #elseBlock>
-                  <ion-col [style.color]="'red'" col-3>
-                    <h2>- Gasto</h2>
+                  <ion-col col-3>
+                    <h2 [style.color]="'red'">- Gasto</h2>
                   </ion-col>
               </ng-template>
             </ion-row>

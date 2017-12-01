@@ -42,8 +42,7 @@ export class MyApp {
       });
       
       userProvider.init();
-    });
-    splashScreen.hide();
+    }).then(()=> { splashScreen.hide() });
   }
 
   openPage(page) {

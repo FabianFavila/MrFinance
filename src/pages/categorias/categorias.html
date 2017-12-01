@@ -19,7 +19,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let category of getCategories()" (click)="done(category.nombre, category.nombre.toLowerCase().trim())">
+    <ion-item *ngFor="let category of getCategories()" (click)="done(category.nombre, category.tag)">
       <ion-avatar item-start>
         <img [src]="category.img">
       </ion-avatar>

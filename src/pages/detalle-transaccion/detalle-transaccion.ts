@@ -73,7 +73,7 @@ export class DetalleTransaccionPage {
 
   selectCategory() {
     let categoriesModal = this.modalCtrl.create(
-      'CategoriasPage', 
+      'CategoriasPage',
       { ingreso: this.transaccion.tipo }
     );
     categoriesModal.onDidDismiss((category, avatar) => {
@@ -85,10 +85,9 @@ export class DetalleTransaccionPage {
     categoriesModal.present();
   }
 
-  selectDate() {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
+  changeDateFormat(date: Date):string {
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1;
 
     if (dd < 10) {
       dd = +('0' + dd)
@@ -98,18 +97,18 @@ export class DetalleTransaccionPage {
       mm = +('0' + mm)
     }
 
-    this.transaccion.fecha = dd + ' / ' + mm;
-    alert(this.transaccion.fecha);
+    return dd + ' / ' + mm;
+  }
 
+  selectDate() {
     this.datePicker.show({
       date: new Date(),
       mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT,
       titleText: "Fecha de transaccion"
     }).then(
       date => {
-        alert('Got date: ' + date);
-        //this.transaccion.fecha = date;
+        this.transaccion.fecha = this.changeDateFormat(date);
       },
       err => alert('Error occurred while getting date: ' + err)
       );
@@ -121,13 +120,13 @@ export class DetalleTransaccionPage {
       this.transaccion.tipo ? this.balance += this.transaccion.cantidad : this.balance -= this.transaccion.cantidad;
 
       let subs = this.db.object('/' + this.currentuser.uid + '/carteras/' + this.carteraTemp.key + '/balance').snapshotChanges()
-      .subscribe(data => {
-        this.balanceCartera = data.payload.val();
-        subs.unsubscribe();
-        this.transaccion.tipo ? this.balanceCartera += this.transaccion.cantidad : this.balanceCartera -= this.transaccion.cantidad;
-        this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
-      });
-      
+        .subscribe(data => {
+          this.balanceCartera = data.payload.val();
+          subs.unsubscribe();
+          this.transaccion.tipo ? this.balanceCartera += this.transaccion.cantidad : this.balanceCartera -= this.transaccion.cantidad;
+          this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
+        });
+
       if (!this.editable) {
         this.userRef.update({ balance: this.balance });
         this.transaccionesRef.push(this.transaccion);
