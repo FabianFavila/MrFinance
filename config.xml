@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.eisei.mrfinance" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.eisei.mrfinance" version="0.8.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Mr. Finance</name>
     <description>La mejor aplicación financiera que le ayudará a controlar sus gastos, llevar un registro de ellos y mejorar su cultura financiera a través de un asistente inteligente.</description>
     <author email="fabian.favila@eisei.net.mx" href="http://www.eisei.net.mx/es/inicio">Fabian Solano</author>
@@ -85,6 +85,7 @@
     </platform>
     <allow-navigation href="http://192.168.245.2:8100" />
     <allow-navigation href="http://192.168.1.70:8100" />
+    <allow-navigation href="http://192.168.56.1:8100" />
     <engine name="android" spec="~6.3.0" />
     <plugin name="cordova-plugin-buildinfo" spec="^2.0.1" />
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />

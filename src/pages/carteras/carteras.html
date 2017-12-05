@@ -27,12 +27,12 @@
             <ion-col col-3>
                 <h2>{{transaccion?.fecha}}</h2>
             </ion-col>
-            <ion-col [style.color]="'green'" col-3 *ngIf="transaccion?.tipo; else elseBlock">
-              <h2>+ Ingreso</h2>
+            <ion-col col-3 *ngIf="transaccion?.tipo; else elseBlock">
+              <h2 [style.color]="'green'">+ Ingreso</h2>
             </ion-col>
             <ng-template #elseBlock>
-                <ion-col [style.color]="'red'" col-3>
-                  <h2>- Gasto</h2>
+                <ion-col col-3>
+                  <h2 [style.color]="'red'">- Gasto</h2>
                 </ion-col>
             </ng-template>
           </ion-row>

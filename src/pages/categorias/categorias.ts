@@ -12,8 +12,8 @@ export class CategoriasPage {
     'Egreso': [
       {
         nombre: 'Ropa',
-        tag: 'ropa',
-        img: 'assets/imgs/categories/ropa.png'
+        tag: 'Ropa',
+        img: 'assets/imgs/categories/Ropa.png'
       },
       {
         nombre: 'Educacion',
@@ -47,13 +47,13 @@ export class CategoriasPage {
       },
       {
         nombre: 'Transporte',
-        tag: 'transporte',
-        img: 'assets/imgs/categories/transporte.png'
+        tag: 'Transporte',
+        img: 'assets/imgs/categories/Transporte.png'
       },
       {
         nombre: 'Vehiculos',
-        tag: 'vehiculos',
-        img: 'assets/imgs/categories/vehiculos.png'
+        tag: 'Vehiculos',
+        img: 'assets/imgs/categories/Vehiculos.png'
       },
       {
         nombre: 'Vida y entretenimiento',
@@ -62,8 +62,8 @@ export class CategoriasPage {
       },
       {
         nombre: 'Servicios',
-        tag: 'servicios',
-        img: 'assets/imgs/categories/servicios.png'
+        tag: 'Servicios',
+        img: 'assets/imgs/categories/Servicios.png'
       },
       {
         nombre: 'Otros',

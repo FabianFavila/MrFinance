@@ -13,7 +13,7 @@ import { UserProvider } from '../../providers/user/user';
 export class DetalleCarteraPage {
   cartera: Cartera;
   balanceOriginal: number;
-  remoteBalance: number;
+  balanceRemoto: number;
   userRef: AngularFireObject<any>;
   carteraRef: AngularFireObject<any>;
   transaccionesRef: AngularFireList<any>;
@@ -30,7 +30,7 @@ export class DetalleCarteraPage {
 
     this.transaccionesRef = db.list(this.currentuser.uid + '/transacciones/');
 
-    db.object('/' + this.currentuser.uid + '/balance').snapshotChanges().subscribe(data => { this.remoteBalance = data.payload.val() });
+    db.object('/' + this.currentuser.uid + '/balance').snapshotChanges().subscribe(data => { this.balanceRemoto = data.payload.val() });
   }
 
   changeDateFormat(date: Date):string {
@@ -58,16 +58,9 @@ export class DetalleCarteraPage {
       });
     } else{
       //The balance was changed
-      let ingreso;
-      if(this.balanceOriginal < this.cartera.balance){
-        // +
-        this.remoteBalance += this.cartera.balance;
-        ingreso = true;
-      } else {
-        // -
-        this.remoteBalance -= this.cartera.balance;
-        ingreso = false;
-      }
+      let diferencia: number = this.cartera.balance - this.balanceOriginal;
+      this.balanceRemoto = Number(this.balanceRemoto) + Number(diferencia);
+      let ingreso = diferencia > 0 ? true : false;
 
       this.transaccionesRef.push({
         cantidad: this.cartera.balance - this.balanceOriginal,
@@ -80,7 +73,7 @@ export class DetalleCarteraPage {
         cartera: this.cartera.nombre
       });
 
-      this.userRef.update({ balance: this.remoteBalance });
+      this.userRef.update({ balance: this.balanceRemoto });
 
       this.carteraRef.update({ 
         nombre: this.cartera.nombre,

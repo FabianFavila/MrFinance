@@ -94,7 +94,7 @@ export class LoginPage {
         const alert = this.alertCtrl.create({
           title: 'Error: ' + JSON.stringify(e),
           buttons: [{
-            text: 'Error al tratar de validar tu informacion con Twitter, por favor intenta de nuevo',
+            text: 'Error al tratar de validar tu informacion con Google, por favor intenta de nuevo',
             handler: () => {
               this.navCtrl.push('WelcomePage');
             }
