@@ -4,6 +4,8 @@ import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angular
 
 import { Cartera } from '../../models/cartera';
 import { UserProvider } from '../../providers/user/user';
+import { Observable } from 'rxjs/Observable';
+import { Transaccion } from '../../models/transaccion';
 
 @IonicPage()
 @Component({
@@ -17,6 +19,7 @@ export class DetalleCarteraPage {
   userRef: AngularFireObject<any>;
   carteraRef: AngularFireObject<any>;
   transaccionesRef: AngularFireList<any>;
+  carteraTransacciones: Observable<any>;
   currentuser: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, db: AngularFireDatabase, user: UserProvider) {
@@ -29,6 +32,10 @@ export class DetalleCarteraPage {
     this.carteraRef = db.object(this.currentuser.uid + '/carteras/' + this.cartera.key);
 
     this.transaccionesRef = db.list(this.currentuser.uid + '/transacciones/');
+
+    this.carteraTransacciones = db.list('/' + this.currentuser.uid + '/transacciones', ref => ref.orderByChild('cartera').equalTo(this.cartera.nombre)).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
 
     db.object('/' + this.currentuser.uid + '/balance').snapshotChanges().subscribe(data => { this.balanceRemoto = data.payload.val() });
   }
@@ -88,6 +95,7 @@ export class DetalleCarteraPage {
   deleteWallet(){
     let confirm = this.alertCtrl.create({
       title: '¿Estas seguro de eliminar esta cartera?',
+      subTitle: 'Se eliminarán tambien todas las transacciones relacionadas a esta cartera.',
       buttons: [
         {
           text: 'Cancelar',
@@ -97,6 +105,11 @@ export class DetalleCarteraPage {
         {
           text: 'Aceptar',
           handler: () => {
+            this.carteraTransacciones.forEach((transaccion) => {
+              this.transaccionesRef.remove(transaccion.key)
+            });
+            this.balanceRemoto -= this.cartera.balance;
+            this.userRef.update({ balance: this.balanceRemoto });
             this.carteraRef.remove().then(()=>{ this.navCtrl.popToRoot() });
           }
         }

@@ -16,7 +16,7 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class VerTransaccionPage {
   transaccion: Transaccion;
-  cartera: Cartera;
+  cartera: Cartera = { nombre: "", color: "", balance: 0, key: "" };
   carteras: Observable<Cartera[]>;
   balanceRemoto: number;
   balanceCartera: number;
@@ -37,15 +37,15 @@ export class VerTransaccionPage {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
-    this.carteras.forEach((cartera) => {
-      this.cartera = cartera[0];
-    });
-
     db.object('/' + currentuser.uid + '/balance').snapshotChanges().subscribe(data => { this.balanceRemoto = data.payload.val() });
 
-    db.object('/' + currentuser.uid + '/carteras/' + this.cartera.key + '/balance').snapshotChanges().subscribe(data => { this.balanceCartera = data.payload.val() });
+    this.carteras.forEach((cartera) => {
+      this.cartera = cartera[0];
 
-    this.carteraRef = db.object(currentuser.uid + '/carteras/' + this.cartera.key);
+      db.object('/' + currentuser.uid + '/carteras/' + this.cartera.key + '/balance').snapshotChanges().subscribe(data => { this.balanceCartera = data.payload.val() });
+
+      this.carteraRef = db.object(currentuser.uid + '/carteras/' + this.cartera.key);
+    });
   }
 
   edit() {

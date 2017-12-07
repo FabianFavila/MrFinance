@@ -21,22 +21,27 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private storage: Storage, private fb: Facebook, private afAuth: AngularFireAuth, private twitter: TwitterConnect, private googlePlus: GooglePlus, private platform: Platform) {
     this.isNew = navParams.get('newPerson');
-
-    this.user = new Usuario("", "", "", "", "", 0);
+  
+    let subs = afAuth.authState.subscribe((user: firebase.User) => {
+      if (!user) {
+        alert("No user");
+        this.user = new Usuario("", "", "", "", "", 0);
+        return;   
+      }
+      this.user.nombre = user.displayName;
+      this.user.email = user.email;
+      this.user.uid = user.uid;
+      alert("There is a user:" + this.user.nombre);
+      return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
+    });
   }
 
   loginFacebook() {
     if (this.platform.is('cordova')) {
-      this.fb.login(['public_profile', 'email'])
+      return this.fb.login(['public_profile', 'email'])
         .then((res: FacebookLoginResponse) => {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-          firebase.auth().signInWithCredential(facebookCredential);
-          this.afAuth.authState.subscribe((user: firebase.User) => {
-            this.user.nombre = user.displayName;
-            this.user.email = user.email;
-            this.user.uid = user.uid;
-            return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
-          });
+          return firebase.auth().signInWithCredential(facebookCredential);
         })
         .catch(e => {
           const alert = this.alertCtrl.create({
@@ -52,7 +57,7 @@ export class LoginPage {
         });
 
     } else {
-      // This is for debugging process only
+      // This is for debugging process only with ionic serve in the browser
       return this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(res => {
