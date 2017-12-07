@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 import { Transaccion } from '../../models/transaccion';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Cartera } from '../../models/cartera';
+
 import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
@@ -11,7 +16,13 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class VerTransaccionPage {
   transaccion: Transaccion;
-  itemRef: AngularFireList<any>;
+  cartera: Cartera;
+  carteras: Observable<Cartera[]>;
+  balanceRemoto: number;
+  balanceCartera: number;
+  transaccionesRef: AngularFireList<any>;
+  userRef: AngularFireObject<any>;
+  carteraRef: AngularFireObject<any>;
   currency: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, db: AngularFireDatabase, user: UserProvider) {
@@ -19,14 +30,29 @@ export class VerTransaccionPage {
     this.currency = currentuser.moneda;
 
     this.transaccion = navParams.get('transaccion');
-    this.itemRef = db.list(currentuser.uid + '/transacciones/');
+    this.userRef = db.object('/' + currentuser.uid);
+    this.transaccionesRef = db.list(currentuser.uid + '/transacciones/');
+
+    this.carteras = db.list('/' + currentuser.uid + '/carteras', ref => ref.orderByChild('nombre').equalTo(this.transaccion.cartera)).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+
+    this.carteras.forEach((cartera) => {
+      this.cartera = cartera[0];
+    });
+
+    db.object('/' + currentuser.uid + '/balance').snapshotChanges().subscribe(data => { this.balanceRemoto = data.payload.val() });
+
+    db.object('/' + currentuser.uid + '/carteras/' + this.cartera.key + '/balance').snapshotChanges().subscribe(data => { this.balanceCartera = data.payload.val() });
+
+    this.carteraRef = db.object(currentuser.uid + '/carteras/' + this.cartera.key);
   }
 
-  edit(){
+  edit() {
     this.navCtrl.push('DetalleTransaccionPage', { txn: this.transaccion, flag: true });
   }
 
-  delete(){
+  delete() {
     let confirm = this.alertCtrl.create({
       title: '¿Estas seguro de eliminar este registro?',
       buttons: [
@@ -38,7 +64,18 @@ export class VerTransaccionPage {
         {
           text: 'Aceptar',
           handler: () => {
-            this.itemRef.remove(this.transaccion.key);
+            if (this.transaccion.tipo) {
+              this.balanceCartera -= this.transaccion.cantidad;
+              this.balanceRemoto -= this.transaccion.cantidad;
+            } else {
+              this.balanceCartera += this.transaccion.cantidad;
+              this.balanceRemoto += this.transaccion.cantidad;
+            }
+
+            this.userRef.update({ balance: this.balanceRemoto });
+            this.carteraRef.update({ balance: this.balanceCartera });
+
+            this.transaccionesRef.remove(this.transaccion.key);
             this.navCtrl.pop();
           }
         }

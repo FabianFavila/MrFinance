@@ -20,13 +20,14 @@ export class DetalleTransaccionPage {
   transaccionesRef: AngularFireList<any>;
   carteras: Observable<any[]>;
   carteraTemp: Cartera;
-  balance: number;
+  balanceGeneral: number;
   balanceCartera: number;
   userRef: AngularFireObject<any>;
   balanceRef: AngularFireObject<any>;
   editable: boolean;
   moneda: string = 'MXN';
   currentuser: any;
+  cantidadOriginal: number;
 
   transaccion: Transaccion = {
     cantidad: 0,
@@ -47,13 +48,14 @@ export class DetalleTransaccionPage {
 
     if (this.editable) {
       this.transaccion = navParams.get('txn');
+      this.cantidadOriginal = this.transaccion.cantidad;
     } else {
       this.transaccion.cantidad = navParams.get('amount');
     }
 
     this.userRef = db.object('/' + this.currentuser.uid);
     this.balanceRef = db.object('/' + this.currentuser.uid + '/balance');
-    this.balanceRef.snapshotChanges().subscribe(data => { this.balance = data.payload.val() });
+    this.balanceRef.snapshotChanges().subscribe(data => { this.balanceGeneral = data.payload.val() });
 
     this.transaccionesRef = db.list(this.currentuser.uid + '/transacciones/');
     this.carteras = db.list(this.currentuser.uid + '/carteras').snapshotChanges().map(changes => {
@@ -85,7 +87,7 @@ export class DetalleTransaccionPage {
     categoriesModal.present();
   }
 
-  changeDateFormat(date: Date):string {
+  changeDateFormat(date: Date): string {
     let dd = date.getDate();
     let mm = date.getMonth() + 1;
 
@@ -110,29 +112,51 @@ export class DetalleTransaccionPage {
       date => {
         this.transaccion.fecha = this.changeDateFormat(date);
       },
-      err => alert('Error occurred while getting date: ' + err)
+      err => alert('Un error ocurrio al tratar de tomar la fecha: ' + err)
       );
   }
 
   done() {
     if (this.carteraTemp != null) {
       this.transaccion.cartera = this.carteraTemp.nombre;
-      this.transaccion.tipo ? this.balance += this.transaccion.cantidad : this.balance -= this.transaccion.cantidad;
-
-      let subs = this.db.object('/' + this.currentuser.uid + '/carteras/' + this.carteraTemp.key + '/balance').snapshotChanges()
-        .subscribe(data => {
-          this.balanceCartera = data.payload.val();
-          subs.unsubscribe();
-          this.transaccion.tipo ? this.balanceCartera += this.transaccion.cantidad : this.balanceCartera -= this.transaccion.cantidad;
-          this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
-        });
 
       if (!this.editable) {
-        this.userRef.update({ balance: this.balance });
+        // Es nueva transaccion
+        this.transaccion.tipo ? this.balanceGeneral += this.transaccion.cantidad : this.balanceGeneral -= this.transaccion.cantidad;
+
+        // Subscripcion a la base de datos para tomar el balance actual de la cartera seleccionada y actualizarla con el valor de la transaccion
+        let subs = this.db.object('/' + this.currentuser.uid + '/carteras/' + this.carteraTemp.key + '/balance').snapshotChanges()
+          .subscribe(data => {
+            //Se toma el valor de la cartera seleccionada y se desubscribe para cortar la conexion a la toma de datos
+            this.balanceCartera = data.payload.val();
+            subs.unsubscribe();
+            //Se define si la transaccion es de tipo ingreso o egreso
+            this.transaccion.tipo ? this.balanceCartera += this.transaccion.cantidad : this.balanceCartera -= this.transaccion.cantidad;
+            //Aqui se actualiza el balance de la cartera seleccionada
+            this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
+          });
+
+        this.userRef.update({ balance: this.balanceGeneral });
         this.transaccionesRef.push(this.transaccion);
         this.navCtrl.push('DashboardPage');
       } else {
-        this.userRef.update({ balance: this.balance });
+        // Se esta editando la transaccion
+        let diferencia: number = this.transaccion.cantidad - this.cantidadOriginal;
+        this.transaccion.tipo ? this.balanceGeneral += diferencia : this.balanceGeneral -= diferencia;
+
+        // Subscripcion a la base de datos para tomar el balance actual de la cartera seleccionada y actualizarla con el valor de la transaccion
+        let subs = this.db.object('/' + this.currentuser.uid + '/carteras/' + this.carteraTemp.key + '/balance').snapshotChanges()
+          .subscribe(data => {
+            //Se toma el valor de la cartera seleccionada y se desubscribe para cortar la conexion a la toma de datos
+            this.balanceCartera = data.payload.val();
+            subs.unsubscribe();
+            //Se define si la transaccion es de tipo ingreso o egreso
+            this.transaccion.tipo ? this.balanceCartera += diferencia : this.balanceCartera -= diferencia;
+            //Aqui se actualiza el balance de la cartera seleccionada
+            this.db.object(this.currentuser.uid + '/carteras/' + this.carteraTemp.key).update({ balance: this.balanceCartera });
+          });
+
+        this.userRef.update({ balance: this.balanceGeneral });
         let saveKey = this.transaccion.key;
         delete this.transaccion.key;
         this.transaccionesRef.update(saveKey, this.transaccion);
