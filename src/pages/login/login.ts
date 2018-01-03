@@ -21,19 +21,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private storage: Storage, private fb: Facebook, private afAuth: AngularFireAuth, private twitter: TwitterConnect, private googlePlus: GooglePlus, private platform: Platform) {
     this.isNew = navParams.get('newPerson');
-  
-    let subs = afAuth.authState.subscribe((user: firebase.User) => {
-      if (!user) {
-        alert("No user");
-        this.user = new Usuario("", "", "", "", "", 0);
-        return;   
-      }
-      this.user.nombre = user.displayName;
-      this.user.email = user.email;
-      this.user.uid = user.uid;
-      alert("There is a user:" + this.user.nombre);
-      return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
-    });
+
+    this.user = new Usuario("", "", "", "", "", 0);
   }
 
   loginFacebook() {
@@ -41,7 +30,13 @@ export class LoginPage {
       return this.fb.login(['public_profile', 'email'])
         .then((res: FacebookLoginResponse) => {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-          return firebase.auth().signInWithCredential(facebookCredential);
+          firebase.auth().signInWithCredential(facebookCredential);
+          this.afAuth.authState.subscribe((user: firebase.User) => {
+            this.user.nombre = user.displayName;
+            this.user.email = user.email;
+            this.user.uid = user.uid;
+            return this.navCtrl.push('SetupLoginPage', { 'user': this.user });
+          });
         })
         .catch(e => {
           const alert = this.alertCtrl.create({

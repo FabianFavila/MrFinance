@@ -1,6 +1,6 @@
 {
   "name": "MrFinance",
-  "app_id": "",
+  "app_id": "39d69aa0",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
